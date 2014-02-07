@@ -1,0 +1,34 @@
+<IfModule mod_headers.c>
+  Header set X-UA-Compatible "IE=Edge,chrome=1"
+  # mod_headers can't match by content-type, but we don't want to send this header on *everything*...
+  <FilesMatch "\.(appcache|crx|css|eot|gif|htc|ico|jpe?g|js|m4a|m4v|manifest|mp4|oex|oga|ogg|ogv|otf|pdf|png|safariextz|svg|svgz|ttf|vcf|webm|webp|woff|xml|xpi)$">
+    Header unset X-UA-Compatible
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_autoindex.c>
+    Options -Indexes     
+</IfModule>
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    #workaround for php running as fcgi to set PHP_AUTH_PW and PHP_AUTH_USER for http basic auth
+    RewriteCond %{HTTP:Authorization} ^(.+)$
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    RewriteRule ^/?$ /silex-app/web/index [QSA,L,R=302]
+
+#    RewriteCond $1 !^web/
+#    RewriteCond %{DOCUMENT_ROOT}/web/$1 -f [OR]
+#    RewriteCond %{DOCUMENT_ROOT}/web/$1 -d
+#    RewriteRule ^(.*)$ web/%1/$1 [L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>

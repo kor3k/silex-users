@@ -1,0 +1,20 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Registration complete
+{% endblock title %}
+
+{% block content %}
+
+    <table class="striped">
+    {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.created | date( 'Y-m-d H:i:s' ) }}</td>
+            <td>{{ user.roles | join( ',' ) }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock content %}

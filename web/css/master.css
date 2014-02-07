@@ -1,0 +1,115 @@
+@charset "UTF-8";
+@import 'reset.css';
+@import 'text.css';
+
+*
+{
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */       
+}
+
+/*************/
+
+#page_container
+{
+    background: violet;
+}
+
+#page_navigation
+{
+    background: darkmagenta;
+}
+
+#page_navigation a , #page_navigation a:visited
+{
+    color: white;
+    text-decoration: none;
+}
+
+#page_navigation a:hover
+{
+    text-decoration: underline;
+}
+
+#page_header section
+{
+    text-align: center;
+}
+
+#page_header section:nth-of-type(1)
+{
+    background: darkgoldenrod;
+}
+
+#page_header section:nth-of-type(2)
+{
+    background: darkorange;
+}
+
+#page_header section:nth-of-type(3)
+{
+    background: darkred;
+}
+
+#page_content
+{
+    background: darkkhaki;
+    padding: 5px;
+}
+
+#page_footer
+{
+    background: darkslateblue;
+    color: white;
+    text-align: center;
+}
+
+
+
+table.striped
+{
+    font-family: Helvetica;
+    font-size: 85%;
+    border: 1px solid black;
+    border-collapse: inherit;
+    border-radius: 2px;
+    width: 100%;
+    color: #817f70;
+}
+
+table.striped thead tr
+{
+    background: #F2F2E4;
+}
+
+table.striped thead tr th
+{
+    border-bottom: 1px solid black;
+}
+
+table.striped tr:nth-child(even) td
+{
+    background: white;
+}
+table.striped tr:nth-child(odd) td
+{
+    background: #f0f0ff
+}
+
+table.striped tr:hover td
+{
+    background: #F2F2E4;
+}
+
+
+/*
+ 
+@font-face {
+	font-family: 'PTSans';
+	src: url('../fonts/pt-sans/PTS55F-webfont.eot');
+	src: url('../fonts/pt-sans/PTS55F-webfont_162a16fe.eot') format('embedded-opentype'), url('../fonts/pt-sans/PTS55F-webfont.woff') format('woff'), url('../fonts/pt-sans/PTS55F-webfont.ttf') format('truetype'), url('../fonts/pt-sans/PTS55F-webfont.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+} 
+ */ 

@@ -1,0 +1,11 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Registration complete
+{% endblock title %}
+
+{% block content %}
+
+    Uživatel "{{ user.username }}" ( {{ user.email }} ) byl zaregistrován.
+
+{% endblock content %}

@@ -1,0 +1,78 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{ app.request.locale }}"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="{{ app.request.locale }}"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="{{ app.request.locale }}"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ app.request.locale }}"> <!--<![endif]-->
+<head>
+    
+{% block meta %}     
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <meta name="robots" content="{{ meta_robots | default( meta_robots_follow is defined ? 'all,follow' : 'all,nofollow' ) }}" />
+    <meta name="description" content="{% block meta_description '' %}" />
+    <meta name="keywords" content="{% block meta_keywords '' %}" />
+    <meta name="author" content="{{ meta_author | default( '' ) }}" /> 
+
+    <meta property="og:title" content="{{ block('title') | trim }}" />
+    <meta property="og:description" content="{{ block( 'meta_description' ) | trim }}" />
+    <meta property="og:image" content="{{ meta_image | default( 'http://' ~ app.request.host ~ '/img/facebook.png' ) }}" />     
+{% endblock %}      
+
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>     
+    
+{% block head %}
+                              
+    {% block favicon %}    
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    {% endblock %}             
+            
+    {% block stylesheets %}               
+    {% endblock %}                     
+        
+    {% block javascripts %}                                           
+    {% endblock %}                    
+    
+    <title>{% block title 'some title' %}</title>
+ 
+{% endblock %}  
+</head>
+<body>
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+  
+{% block body %}             
+  <header>
+  </header>
+  
+  <div role="main">   
+      bla
+  </div>
+  
+  <footer>
+  </footer>
+{% endblock %}             
+
+{% block javascript %}    
+    <script>
+    //<![CDATA[   
+    //]]>       
+    </script>           
+    
+{% if meta_ga is defined %}    
+    <script>
+    //<![CDATA[         
+        var _gaq=[['_setAccount','{{ meta_ga }}'],['_trackPageview']];        
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));        
+    //]]>                
+    </script>       
+{% endif %}  
+    
+{% endblock %}     
+  
+</body>    
+
+</html>

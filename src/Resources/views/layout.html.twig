@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container_12 clearfix" id="page_container">
+
+    <header id="page_header" class="grid_12">
+        {% block header %}
+        <section class="grid_4 alpha">
+            silex
+        </section>
+
+        <section class="grid_4">
+            demo
+        </section>
+
+        <section class="grid_4 omega">
+            app
+        </section>
+        {% endblock header %}
+    </header>
+
+    <nav id="page_navigation" class="grid_3">
+        {% block navigation %}
+            {% include 'navigation.html.twig' %}
+        {% endblock navigation %}
+    </nav>
+
+    <article id="page_content" class="grid_9">
+        {% block content 'content' %}
+    </article>
+    
+    <footer id="page_footer" class="grid_12">
+        {% block footer %}
+            &copy; yo mama {{ 'now' | date( 'Y' ) }}
+        {% endblock footer %}
+    </footer>
+    
+</div>    
+
+{% endblock body %}
+
+{% block head %}        
+    {{ block( 'javascripts' ) }}   
+            
+    {{ block( 'adapt_config' ) }}
+        
+    {{ block( 'stylesheets' ) }}    
+
+    {{ block( 'adapt' ) }}    
+
+    {{ block( 'favicon' ) }}
+
+    <title>{% block title 'website' %}</title>
+{% endblock head %}
+
+{% block javascripts %}
+    <script src="{{ constant( 'WEB' ) | default( '.' ) }}/js/jquery.js"></script>
+{% endblock javascripts %}
+    
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/master.css" />
+    <noscript>
+        <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/mobile.css" />
+        <style>
+            #page_header section:nth-of-type(2)
+            {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        </style>
+    </noscript>       
+{% endblock stylesheets %}    
+    
+{% block adapt %}
+    <script src="{{ constant( 'WEB' ) | default( '.' ) }}/js/adapt.js"></script>
+{% endblock adapt %}      
+
+{% block adapt_config %}
+<script type="text/javascript">
+//<![CDATA[   
+
+onScreenResize = function( i , width ) 
+{                               
+    {% if app.debug %}
+        console.log( { 'width' : width , 'index' : i } ); 
+    {% endif %}
+    
+    {% block onScreenResize %}
+
+        if( 0 == i )
+        {
+            $( '#page_header section:nth-of-type(2)' ).addClass( 'alpha omega' );
+        }
+        else
+        {
+            $( '#page_header section:nth-of-type(2)' ).removeClass( 'alpha omega' );
+        }
+
+    {% endblock onScreenResize %}       
+}
+
+// Edit to suit your needs.
+var ADAPT_CONFIG = {
+// Where is your CSS?
+//path: 'assets/css/',
+path: '{{ constant( 'WEB' ) | default( '.' ) }}/css/' ,
+
+// false = Only run once, when page first loads.
+// true = Change on window resize and page tilt.
+dynamic: true,
+
+// Optional callback... myCallback(i, width)
+callback: function(i,width)
+{
+//the callback is initially run BEFORE page is loaded, so not all DOM elements do exist yet, therefore we bind it to window:load    
+    $(window).load(function(){        
+        onScreenResize(i,width);
+    });
+      
+    
+    return onScreenResize(i,width);
+},
+
+// First range entry is the minimum.
+// Last range entry is the maximum.
+// Separate ranges by "to" keyword.
+range: [
+    '0px    to 760px  = mobile.css',
+    '760px  to 980px  = 720.css',
+    '980px  to 1280px = 960.css',
+    '1280px to 1600px = 1200.css',
+    '1600px to 1920px = 1560.css',
+    '1940px to 2540px = 1920.css',
+    '2540px           = 2520.css'
+]
+};    
+
+//]]>       
+</script> 
+{% endblock adapt_config %}

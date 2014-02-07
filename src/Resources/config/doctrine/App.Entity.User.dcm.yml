@@ -1,0 +1,42 @@
+App\Entity\User:
+  type: entity        
+#  repositoryClass: Gallery\BackendBundle\Repository\UserRepository
+  table: user
+  fields:
+    id:
+      type: integer
+      id: true
+      nullable: false
+      unsigned: true      
+      column: id_user
+      generator:
+        strategy: IDENTITY
+    email:
+      type: string
+      length: 255
+      nullable: false
+      column: email
+    username:
+      type: string
+      length: 255
+      nullable: false
+      column: username
+    password:
+      type: string
+      length: 255
+      nullable: false
+      column: password
+    roles:
+      type: array
+      length: 255
+      nullable: false
+      column: roles
+    created:
+      type: datetime
+      nullable: false
+      column: created
+    confirmationToken:
+      type: string
+      length: 255
+      nullable: true
+      column: confirmation_token

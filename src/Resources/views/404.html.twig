@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Page not found {{ error.statusCode | default('') }}
+{% endblock title %}
+
+{% block content %}  
+    
+    <h2><span style="color: red;">Page not found</span> {{ error.statusCode | default('') }}</h2>                
+
+    <p>
+        Page {{ app.request.uri }} was not found {{ error.statusCode | default('') }} {{ error.message | default('') }}
+    </p>
+
+{% endblock content %}  

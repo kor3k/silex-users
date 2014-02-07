@@ -1,0 +1,22 @@
+{
+    "name": "kor3k/users",
+    "description": "silex users app",
+    "license": "MIT",    
+    "minimum-stability": "dev",
+    "prefer-stable": true ,
+    
+    "require": {
+        "kor3k/silex": "dev-master"
+    },
+            
+    "repositories": [
+        {
+            "type": "git",
+            "url":  "https://bitbucket.org/kor3k/silex.git"
+        }
+    ],            
+            
+    "autoload": {
+        "psr-0": { "App\\": "src/" }
+    }           
+}

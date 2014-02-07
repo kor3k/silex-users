@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Error {{ error.statusCode | default('') }}
+{% endblock title %}
+
+{% block content %}  
+    
+    <h2><span style="color: red;">Error</span> {{ error.statusCode | default('') }}</h2>                
+
+    <p>
+        An error has occurred {{ error.statusCode | default('') }} {{ error.message | default('') }}
+    </p>
+
+{% endblock content %}  

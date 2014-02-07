@@ -1,0 +1,29 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Home page
+{% endblock title %}
+
+{% block content %}  
+
+    
+    <table class="striped">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>phone</th>
+        </tr>
+        </thead>
+    {% for id , partner in partners %}
+        <tr>
+            <td>{{ id }}</td>
+            <td>{{ partner.name }}</td>
+            <td>{{ partner.phone }}</td>
+        </tr>
+    {% else %}
+        <tr><td colspan="3">no partners</td></tr>
+    {% endfor %}
+    </table>
+    
+{% endblock content %}  
