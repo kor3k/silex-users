@@ -1,5 +1,5 @@
 {
-    "name": "kor3k/users",
+    "name": "kor3k/silex-users",
     "description": "silex users app",
     "license": "MIT",    
     "minimum-stability": "dev",
@@ -12,7 +12,7 @@
     "repositories": [
         {
             "type": "git",
-            "url":  "https://bitbucket.org/kor3k/silex.git"
+            "url":  "https://github.com/kor3k/silex.git"
         }
     ],            
             
