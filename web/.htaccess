@@ -22,13 +22,17 @@
     RewriteCond %{HTTP:Authorization} ^(.+)$
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    RewriteRule ^/?$ /silex-app/web/index [QSA,L,R=302]
+#   změnit na vlastní adresář na localhost
+#   relativní k root, takže pokud www.blabla.cz -> /index
+    RewriteRule ^/?$ /users/web/index [QSA,L,R=302]
 
+#   přepisuje url tak, aby směrovaly do adresáře web/
 #    RewriteCond $1 !^web/
 #    RewriteCond %{DOCUMENT_ROOT}/web/$1 -f [OR]
 #    RewriteCond %{DOCUMENT_ROOT}/web/$1 -d
 #    RewriteRule ^(.*)$ web/%1/$1 [L]
 
+#   pokud url nevede na skutečný soubor (css,js,etc), tak všechny requesty posílá na front controller
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>

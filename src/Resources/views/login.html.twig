@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Login
+{% endblock title %}
+
+{% block content %}
+
+<form action="{{ url('login_check') }}" method="post">
+    <table>
+        <tr>
+            <th>Uživatelské jméno / Email:</th>
+            <td><input type="text" name="_username" value="{{ last_username }}" /></td>
+        </tr>
+        <tr>
+            <th>Heslo:</th>
+            <td><input type="password" name="_password" value="" /></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" value="přihlásit" /></td>
+        </tr>
+    </table>
+</form>
+
+<div>
+    {{ last_error }}
+</div>
+
+<a href="{{ path('logout') }}">Logout</a>
+
+{% endblock content %}

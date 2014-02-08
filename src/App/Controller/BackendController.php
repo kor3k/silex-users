@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Controller;
 
 class BackendController extends \Core\AbstractController
 {
