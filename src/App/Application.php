@@ -4,6 +4,8 @@ namespace App;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\ChainUserProvider ,
+    Symfony\Component\Security\Core\User\InMemoryUserProvider;
 
 class Application extends \Core\Application
 {
@@ -53,12 +55,16 @@ class Application extends \Core\Application
                     'anonymous' =>  true ,
                     'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
                     'logout' => array( 'logout_path' => '/logout' , 'target_url' => '/login' ),
+                    'switch_user' => array('parameter' => '_switch_user', 'role' => 'ROLE_ALLOWED_TO_SWITCH'),
                     'users' => $this->share(function ()
                     {
-                        return new UserProvider( $this['doctrine'] , 'App\Entity\User' , null , null ,
-                            [
-                                'admin' =>  [ 'ROLE_IDDQD' , $this['admin_password'] ] ,
-                            ] );
+                        $entityProv    =   new EntityUserProvider( $this['doctrine'] , 'App\Entity\User' );
+                        $inMemoryProv  =   new InMemoryUserProvider(
+                                            [
+                                                'iddqd' =>  [ 'roles' => [ 'ROLE_IDDQD' ] , 'password' => $this['admin_password'] ] ,
+                                            ] );
+
+                        return new ChainUserProvider([ $inMemoryProv , $entityProv ]);
                     }),
                 ),
             ] ,
@@ -71,9 +77,9 @@ class Application extends \Core\Application
             [
                 [ '^/admin', 'ROLE_ADMIN', 'https' ] ,
                 [ '^/secured' , 'ROLE_USER' , 'https' ] ,
-                [ '^.*$' , 'IS_AUTHENTICATED_ANONYMOUSLY' ] ,
                 [ '^/login' , 'IS_AUTHENTICATED_ANONYMOUSLY' , 'https' ] ,
                 [ '^/login_check' , 'IS_AUTHENTICATED_ANONYMOUSLY' , 'https' ] ,
+                [ '^/.*' , 'IS_AUTHENTICATED_ANONYMOUSLY' ] ,
             ] ,
         ];
 

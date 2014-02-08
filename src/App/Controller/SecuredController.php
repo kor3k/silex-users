@@ -16,7 +16,7 @@ class SecuredController extends \Core\AbstractController
     protected function connect( \Silex\ControllerCollection $controllers )
     {
         $controllers->get( '/index', array( $this , 'getIndexAction' ) )
-            ->bind( 'get_secured_index' )
+            ->bind( 'secured_index' )
             ->secure( 'ROLE_USER' )
         ;
 

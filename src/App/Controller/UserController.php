@@ -11,13 +11,13 @@ class UserController extends \Core\AbstractController
 {
     public function getRegisterAction()
     {
-        return $this->app->render( 'register.html.twig' , [ 'form' => $this->createRegistrationForm()->createView() ] );
+        return $this->app->render( '/user/registration.html.twig' , [ 'form' => $this->createRegistrationForm()->createView() ] );
     }
 
     public function postRegisterAction( Request $request )
     {
         $form   =   $this->createRegistrationForm();
-        $form->submit( $request->request->get( 'form' ) );
+        $form->submit( $request->request->get( 'registration' ) );
 
         if( $form->isValid() )
         {
@@ -28,19 +28,69 @@ class UserController extends \Core\AbstractController
             $em->persist( $user );
             $em->flush();
 
-            return $this->app->render( 'registrationComplete.html.twig' , [ 'user' => $user ] );
+            return $this->app->render( '/user/registrationComplete.html.twig' , [ 'user' => $user ] );
         }
         else
         {
-            return $this->app->render( 'register.html.twig' , [ 'form' => $form->createView() ] );
+            return $this->app->render( '/user/registration.html.twig' , [ 'form' => $form->createView() ] );
         }
     }
 
-    public function getUserListAction()
+    public function cgetAction()
     {
         $users  =   $this->getUserRepository()->findAll();
 
-        return $this->app->render( 'userList.html.twig' , [ 'users' => $users ] );
+        return $this->app->render( '/user/list.html.twig' , [ 'users' => $users ] );
+    }
+
+
+    public function editAction( Request $request , $user )
+    {
+        $user   =   $this->getUserRepository()->findOneBy([ 'id' => $user ]);
+
+        if( !$user )
+        {
+            $this->app->abort( 404 , 'uživatel nenalezen' );
+        }
+
+        $form   =   $this->createEditForm( $user );
+
+        if( 'PUT' === $request->getMethod() )
+        {
+            $form->submit( $request->request->get( 'user' ) );
+
+            if( $form->isValid() )
+            {
+                $user   =   $form->getData();
+                $em     =   $this->app['orm.em'];
+
+                $em->persist( $user );
+                $em->flush( $user );
+
+                return $this->app->redirect( $this->app->url( 'edit_user' , [ 'user' => $user->getId() ] ) );
+            }
+        }
+
+        return $this->app->render( '/user/edit.html.twig' , [
+            'user'  =>  $user ,
+            'form'  =>  $form->createView() ,
+        ] );
+    }
+
+    public function deleteAction( $user )
+    {
+        $user   =   $this->getUserRepository()->findOneBy([ 'id' => $user ]);
+
+        if( !$user )
+        {
+            $this->app->abort( 404 , 'uživatel nenalezen' );
+        }
+
+        $em     =   $this->app['orm.em'];
+        $em->remove( $user );
+        $em->flush();
+
+        return $this->app->redirect( $this->app->url( 'get_users' ) );
     }
 
     protected function connect( \Silex\ControllerCollection $controllers )
@@ -53,8 +103,24 @@ class UserController extends \Core\AbstractController
             ->bind( 'post_register_user' )
         ;
 
-        $controllers->get( '/list', array( $this , 'getUserListAction' ) )
-            ->bind( 'get_user_list' )
+        $controllers->get( '/', array( $this , 'cgetAction' ) )
+            ->bind( 'get_users' )
+            ->secure( 'ROLE_ADMIN' )
+        ;
+
+        $controllers->get( '/{user}', array( $this , 'getAction' ) )
+            ->bind( 'get_user' )
+            ->secure( 'ROLE_ADMIN' )
+        ;
+
+        $controllers->put( '/{user}', array( $this , 'putAction' ) )
+            ->bind( 'put_user' )
+            ->secure( 'ROLE_ADMIN' )
+        ;
+
+        $controllers->get( '/{user}/edit', array( $this , 'getEditAction' ) )
+            ->bind( 'edit_user' )
+            ->secure( 'ROLE_ADMIN' )
         ;
 
         return $controllers;
@@ -71,12 +137,25 @@ class UserController extends \Core\AbstractController
         return $this->app['orm.em']->getRepository( 'App\Entity\User' );
     }
 
+    protected function createEditForm( User $user )
+    {
+        $fb =   $this->app['form.factory']->createNamedBuilder( 'user' , 'form' , $user );
+        $fb
+            ->add( 'roles' , 'choice' ,
+                    [
+                        'multiple'      => true ,
+                        'constraints'   =>  [ new Constraints\Choice([ 'choices' => $user->getRoles() ]) ]
+                    ])
+            ->add( 'submit' , 'submit' , [ 'label'  =>  'upravit' ] )
+        ;
+    }
+
     /**
      * @return \Symfony\Component\Form\Form
      */
     protected function createRegistrationForm()
     {
-        $fb =   $this->app['form.factory']->createBuilder( 'form' , new User() );
+        $fb =   $this->app['form.factory']->createNamedBuilder( 'registration' , 'form' , new User() );
         $fb
             ->add( 'email' , 'email' ,
                     [
@@ -128,7 +207,7 @@ class UserController extends \Core\AbstractController
                         'second_options' => array('label' => 'Heslo zopakujte'),
                     ]
                 )
-            ->add( 'submit' , 'submit' )
+            ->add( 'submit' , 'submit' , [ 'label'  =>  'registrovat' ] )
         ;
 
         return $fb->getForm();

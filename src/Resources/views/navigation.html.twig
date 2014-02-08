@@ -1,6 +1,13 @@
 <menu>
-    <li><a href="{{ url( 'get_register_user' ) }}">Register user</a></li>
-    <li><a href="{{ url( 'get_user_list' ) }}">User list</a></li>
+    {% if app.user and is_granted( 'ROLE_USER' ) %}
+        <li><a href="{{ url( 'logout' ) }}">Logout</a></li>
+        <li>{{ app.user.username }}</li>
+    {% else %}
+        <li><a href="{{ url( 'login' ) }}">Login</a></li>
+        <li><a href="{{ url( 'get_register_user' ) }}">Register user</a></li>
+    {% endif %}
+    <li><a href="{{ url( 'secured_index' ) }}">Secured area</a></li>
+    <li><a href="{{ url( 'get_users' ) }}">User list</a></li>
     <li><a href="{{ url( 'index' ) }}">Home page</a></li>
     <li><a href="{{ url( 'partners' ) }}">Partners</a></li>
     <li><a href="{{ url( '404' ) }}">Not found page</a></li>

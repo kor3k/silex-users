@@ -29,7 +29,7 @@ $config   =	array(
     'database_user'	    =>  'root',
     'database_password'	=>  '',  
     
-    'admin_password'	=>  'vstup' ,
+    'admin_password'	=>  'idkfa' ,
     
     'cache_ttl'		    =>  3600 ,
     'response_ttl'	    =>  3600 ,
@@ -46,7 +46,7 @@ $app->boot();
 //to se může přesunout do App\Application::boot, ale musí se prvně zavolat Silex\Application::boot
 //anebo do Controller::connect ... matter of taste
 $user =   new \App\Controller\UserController( $app );
-$app->mount( '/user' , $user() );
+$app->mount( '/users' , $user() );
 
 $secured =   new \App\Controller\SecuredController( $app );
 $app->mount( '/secured' , $secured() );
