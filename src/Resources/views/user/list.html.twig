@@ -13,6 +13,13 @@
             <td>{{ user.email }}</td>
             <td>{{ user.created | date( 'Y-m-d H:i:s' ) }}</td>
             <td>{{ user.roles | join( ',' ) }}</td>
+            <td><a href="{{ url( 'edit_user' , { 'user' : user.id } ) }}">upravit</a></td>
+            <td>
+                <form method="post" action="{{ url( 'delete_user' , { 'user' : user.id } ) }}">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <a href="#" onclick="$(this).parent().submit()">smazat</a>
+                </form>
+            </td>
         </tr>
     {% endfor %}
     </table>

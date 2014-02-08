@@ -9,6 +9,6 @@
     <table>
     </table>
 
-    {{ form( form ) }}
+    {{ form( form , { 'method' : 'PUT' , 'action' : url( 'put_user' , { 'user' : user.id } ) } ) }}
 
 {% endblock content %}

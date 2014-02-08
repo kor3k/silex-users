@@ -31,8 +31,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->roles    =   new ArrayCollection();
-        $this->roles->add( static::ROLE_USER );
+        $this->setUserRoles( [ static::ROLE_USER ] );
     }
 
     /**
@@ -126,36 +125,41 @@ class User implements UserInterface
     }
 
     /**
-     * @return array
+     * @return Role[]
      */
     public function getRoles()
+    {
+        return $this->roles->map(
+            function( $role )
+            {
+                return new Role( $role );
+            })->toArray();
+    }
+
+    /**
+     * @return array
+     */
+    public function getUserRoles()
     {
         return $this->roles->toArray();
     }
 
     /**
-     * @param string $role
+     * @param array $roles
      * @return $this
      */
-    public function addRole( $role )
+    public function setUserRoles( array $roles )
     {
-        $role = new Role( strtoupper( $role ) ) ;
-
-        if( !$this->roles->contains( $role ) )
+        $this->roles    =   new ArrayCollection();
+        foreach( $roles as $key => $role )
         {
+            if( $role instanceof Role )
+            {
+                $role   =   $role->getRole();
+            }
+            $role   =   strtoupper( $role );
             $this->roles->add( $role );
         }
-
-        return $this;
-    }
-
-    /**
-     * @param string $role
-     * @return $this
-     */
-    public function removeRole( $role )
-    {
-        $this->roles->removeElement( new Role( strtoupper( $role ) ) );
 
         return $this;
     }

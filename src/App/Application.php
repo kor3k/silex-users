@@ -44,7 +44,7 @@ class Application extends \Core\Application
     protected function initSecurity( array $security = array() )
     {
         //je potřeba, aby byl uživatel přihlášený napříč celou aplikací, ale zároveň část aplikace byla dostupná i bez přihlášení
-        //zabezpečené controller actions nastavit příslušnou rolí přes (SecurityTrait)Controller::secure
+        //zabezpečené routy/controller akce nastavit příslušnou rolí přes (SecurityTrait)Route::secure nebo přes security.access_rules
 
         $security   =
         [

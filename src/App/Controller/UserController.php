@@ -62,10 +62,10 @@ class UserController extends \Core\AbstractController
             if( $form->isValid() )
             {
                 $user   =   $form->getData();
-                $em     =   $this->app['orm.em'];
+                $em     =   $this->app['doctrine']->getManager();
 
                 $em->persist( $user );
-                $em->flush( $user );
+                $em->flush();
 
                 return $this->app->redirect( $this->app->url( 'edit_user' , [ 'user' => $user->getId() ] ) );
             }
@@ -113,12 +113,17 @@ class UserController extends \Core\AbstractController
             ->secure( 'ROLE_ADMIN' )
         ;
 
-        $controllers->put( '/{user}', array( $this , 'putAction' ) )
+        $controllers->put( '/{user}', array( $this , 'editAction' ) )
             ->bind( 'put_user' )
             ->secure( 'ROLE_ADMIN' )
         ;
 
-        $controllers->get( '/{user}/edit', array( $this , 'getEditAction' ) )
+        $controllers->delete( '/{user}', array( $this , 'deleteAction' ) )
+            ->bind( 'delete_user' )
+            ->secure( 'ROLE_ADMIN' )
+        ;
+
+        $controllers->get( '/{user}/edit', array( $this , 'editAction' ) )
             ->bind( 'edit_user' )
             ->secure( 'ROLE_ADMIN' )
         ;
@@ -139,15 +144,21 @@ class UserController extends \Core\AbstractController
 
     protected function createEditForm( User $user )
     {
+        $roles  =   [ 'ROLE_USER' => 'ROLE_USER' , 'ROLE_ADMIN' => 'ROLE_ADMIN' ];
         $fb =   $this->app['form.factory']->createNamedBuilder( 'user' , 'form' , $user );
         $fb
-            ->add( 'roles' , 'choice' ,
+            ->add( 'username' , 'text' , [ 'disabled' => true ] )
+            ->add( 'email' , 'email' , [ 'disabled' => true ] )
+            ->add( 'userRoles' , 'choice' ,
                     [
                         'multiple'      => true ,
-                        'constraints'   =>  [ new Constraints\Choice([ 'choices' => $user->getRoles() ]) ]
+                        'constraints'   =>  [ new Constraints\Choice([ 'choices' => array_values( $roles ) , 'multiple' => true ]) ] ,
+                        'choices'       =>  $roles ,
                     ])
             ->add( 'submit' , 'submit' , [ 'label'  =>  'upravit' ] )
         ;
+
+        return $fb->getForm();
     }
 
     /**
