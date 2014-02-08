@@ -24,6 +24,7 @@ class UserController extends \Core\AbstractController
             $user   =   $form->getData();
             $em     =   $this->app['orm.em'];
 
+            $user->setPassword( $this->app->encodePassword( $user , $user->getPassword() ) );
             $em->persist( $user );
             $em->flush();
 

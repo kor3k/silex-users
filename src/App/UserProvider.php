@@ -9,38 +9,55 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 
 class UserProvider extends EntityUserProvider
 {
-    protected $class;
     protected $repository;
-    protected $property;
-    protected $metadata;
 
     protected $embeddedUsers    =   array();
 
     public function __construct(ManagerRegistry $registry, $class, $property = null, $managerName = null , array $embeddedUsers = array() )
     {
+        $this->repository       =   $registry->getManager( $managerName )->getRepository( $class );
         $this->embeddedUsers    =   $embeddedUsers;
 
-        $em = $registry->getManager($managerName);
-        $this->class = $class;
-        $this->metadata = $em->getClassMetadata($class);
-
-        if (false !== strpos($this->class, ':')) {
-            $this->class = $this->metadata->getName();
-        }
-
-        $this->repository = $em->getRepository($class);
-        $this->property = $property;
+        parent::__construct( $registry , $class , $property , $managerName );
     }
 
+    /**
+     * @return \Symfony\Component\Security\Core\User\User
+     */
+    private function getEmbeddedUser( $username )
+    {
+        return new SecurityUser(
+            $username ,
+            $this->embeddedUsers[$username][1] ,
+            $this->embeddedUsers[$username][0] ,
+            true, true, true, true);
+    }
+
+    /**
+     * @return \Symfony\Component\Security\Core\User\UserInterface[]
+     */
+    public function getEmbeddedUsers()
+    {
+        $ret    =   array();
+
+        foreach( $this->embeddedUsers as $username  => $val )
+        {
+            $ret[$username] =   $this->getEmbeddedUser( $username );
+        }
+
+        return $ret;
+    }
+
+    /**
+     * @param string $usernameOrEmail
+     * @return \Symfony\Component\Security\Core\User\UserInterface
+     * @throws \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
+     */
     public function loadUserByUsername( $usernameOrEmail )
     {
         if( !empty( $this->embeddedUsers[$usernameOrEmail] ) )
         {
-            return new SecurityUser(
-                $usernameOrEmail ,
-                $this->embeddedUsers[$usernameOrEmail][1] ,
-                $this->embeddedUsers[$usernameOrEmail][0] ,
-                true, true, true, true);
+            return $this->getEmbeddedUser( $usernameOrEmail );
         }
 
         $user   =   $this->repository->findOneBy([ 'username' => strtolower( $usernameOrEmail ) ]);
@@ -55,10 +72,6 @@ class UserProvider extends EntityUserProvider
             throw new UsernameNotFoundException( sprintf( 'User "%s" not found.', $usernameOrEmail ) );
         }
 
-        return new SecurityUser(
-                                    $user->getUsername() ,
-                                    $user->getPassword() ,
-                                    $user->getRoles() ,
-                                    true, true, true, true);
+        return $user;
     }
 }

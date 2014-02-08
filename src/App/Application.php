@@ -52,7 +52,7 @@ class Application extends \Core\Application
                     'pattern' => '^/.*',
                     'anonymous' =>  true ,
                     'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
-                    'logout' => array('logout_path' => '/logout'),
+                    'logout' => array( 'logout_path' => '/logout' , 'target_url' => '/login' ),
                     'users' => $this->share(function ()
                     {
                         return new UserProvider( $this['doctrine'] , 'App\Entity\User' , null , null ,

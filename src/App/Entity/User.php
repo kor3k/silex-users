@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Core\Role;
 
-class User
+class User implements UserInterface
 {
     private $id;
 
@@ -28,11 +28,6 @@ class User
     const   ROLE_USER   =   'ROLE_USER';
 
     const   ROLE_ADMIN  =   'ROLE_ADMIN';
-
-    /**
-     * @var \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
-     */
-    private static $passwordEncoder;
 
     public function __construct()
     {
@@ -77,14 +72,12 @@ class User
     }
 
     /**
-     * @param string $rawPassword
+     * @param string $password
      * @return $this
      */
-    public function setPassword( $rawPassword )
+    public function setPassword( $password )
     {
-        $rawPassword       =   (string)$rawPassword;
-        $this->password =   static::getPasswordEncoder()->encodePassword( $rawPassword , $rawPassword );
-
+        $this->password =   (string)$password;
         return $this;
     }
 
@@ -94,15 +87,6 @@ class User
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * @param string $rawPassword
-     * @return bool
-     */
-    public function isPasswordValid( $rawPassword )
-    {
-        return static::getPasswordEncoder()->isPasswordValid( $this->password , $rawPassword , $this->password );
     }
 
     /**
@@ -155,7 +139,7 @@ class User
      */
     public function addRole( $role )
     {
-        $role = strtoupper( $role ) ;
+        $role = new Role( strtoupper( $role ) ) ;
 
         if( !$this->roles->contains( $role ) )
         {
@@ -171,7 +155,7 @@ class User
      */
     public function removeRole( $role )
     {
-        $this->roles->removeElement( strtoupper( $role ) );
+        $this->roles->removeElement( new Role( strtoupper( $role ) ) );
 
         return $this;
     }
@@ -184,16 +168,31 @@ class User
         return $this->id;
     }
 
-    /**
-     * @return \Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface
-     */
-    public static function getPasswordEncoder()
+    public function __toString()
     {
-        if( !( static::$passwordEncoder instanceof PasswordEncoderInterface ) )
-        {
-            static::$passwordEncoder    =   new MessageDigestPasswordEncoder( 'ripemd160' , true , 50 );
-        }
+        return (string)$this->getUsername();
+    }
 
-        return static::$passwordEncoder;
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        return null;
     }
 }
