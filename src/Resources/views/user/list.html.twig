@@ -20,6 +20,9 @@
                     <a href="#" onclick="$(this).parent().submit()">smazat</a>
                 </form>
             </td>
+            <td>
+                <a href="{{ url( 'index' , { '_switch_user' : user.username , 'nonce' : 'now' | date( 'U' ) } ) }}">simulovat</a>
+            </td>
         </tr>
     {% endfor %}
     </table>

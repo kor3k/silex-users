@@ -39,6 +39,14 @@ class Application extends \Core\Application
         //připojení security controlleru
         $securityCtrlr  =   new \App\Controller\SecurityController( $this );
         $this->mount( '/' , $securityCtrlr() );
+
+        $this->after(function (Request $request, Response $response)
+        {
+            $response
+                ->setPrivate()
+                ->setClientTtl(0)
+                ->setTtl(0);
+        });
     }
 
     protected function initSecurity( array $security = array() )
