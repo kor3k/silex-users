@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Silex\Route\SecurityTrait;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\SecurityEvents ,
+    Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class SecurityController extends \Core\AbstractController
 {
@@ -21,11 +23,11 @@ class SecurityController extends \Core\AbstractController
     protected function connect( \Silex\ControllerCollection $controllers )
     {
 
-//        $this->app->on( \Symfony\Component\Security\Http\SecurityEvents::INTERACTIVE_LOGIN ,
-//            function( \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event )
-//            {
-//                $this->updateLastLogin( $event );
-//            });
+        $this->app->on( SecurityEvents::INTERACTIVE_LOGIN ,
+            function( InteractiveLoginEvent $event )
+            {
+                $this->updateLastLogin( $event );
+            });
 
         $controllers->get( '/login', array( $this , 'loginAction' ) )
                     ->bind( 'login' )
@@ -35,20 +37,20 @@ class SecurityController extends \Core\AbstractController
     }
 
 
-    protected function updateLastLogin( \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event , $oncePerDay = false )
+    protected function updateLastLogin( InteractiveLoginEvent $event , $oncePerDay = false )
     {
         $user   =   $event->getAuthenticationToken()->getUser();
         $now    =   new \DateTime();
         $last   =   $user->getLastLogin();
 
-        if( $oncePerDay && $now->diff( $last , true )->days < 1 )
+        if( $oncePerDay && $last && $now->diff( $last , true )->days < 1 )
         {
             return;
         }
 
         $em =   $this->app['orm.em'];
         $user->setLastLogin( $now );
-        $em->update( $user );
+        $em->persist( $user );
         $em->flush();
     }
 }

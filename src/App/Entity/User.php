@@ -18,6 +18,8 @@ class User implements UserInterface
 
     private $created;
 
+    private $lastLogin;
+
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
@@ -104,6 +106,24 @@ class User implements UserInterface
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * @param $lastLogin
+     * @return $this
+     */
+    public function setLastLogin( \DateTime $lastLogin )
+    {
+        $this->lastLogin    =   $lastLogin;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
     }
 
     /**

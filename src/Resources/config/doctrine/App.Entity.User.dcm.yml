@@ -35,6 +35,10 @@ App\Entity\User:
       type: datetime
       nullable: false
       column: created
+    lastLogin:
+      type: datetime
+      nullable: false
+      column: last_login
     confirmationToken:
       type: string
       length: 255
