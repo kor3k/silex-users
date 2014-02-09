@@ -1,4 +1,10 @@
 -- -----------------------------------------------------
+-- Schema `users`
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `users` ;
+
+-- -----------------------------------------------------
 -- Table `users`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `users`.`user` (

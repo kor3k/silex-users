@@ -20,7 +20,7 @@ class Application extends \Core\Application
         $this->initForm();
         $this->initDoctrine( $this['database_host'] , $this['database_name'] , $this['database_user'] , $this['database_password'] );
         $this->initDoctrineOrm( $this['database_name'] );
-        $this->initBasicHttpSecurity( '^/admin' , [ 'admin' => [ 'ROLE_ADMIN' , $this['admin_password'] ] ] );
+//        $this->initBasicHttpSecurity( '^/admin' , [ 'admin' => [ 'ROLE_ADMIN' , $this['admin_password'] ] ] );
         $this->initHttpCache( $this['cache_ttl'] );
 
         $this->initNativeSession();
@@ -36,10 +36,11 @@ class Application extends \Core\Application
         //nabootování silex aplikace. jen do této chvíle je možné inicializovat služby
         parent::boot();
 
-        //připojení security controlleru
+        //připojení security controlleru - zprostředkovává přihlašování uživatelů
         $securityCtrlr  =   new \App\Controller\SecurityController( $this );
         $this->mount( '/' , $securityCtrlr() );
 
+        //necachovat responses
         $this->after(function (Request $request, Response $response)
         {
             $response
@@ -52,7 +53,9 @@ class Application extends \Core\Application
     protected function initSecurity( array $security = array() )
     {
         //je potřeba, aby byl uživatel přihlášený napříč celou aplikací, ale zároveň část aplikace byla dostupná i bez přihlášení
-        //zabezpečené routy/controller akce nastavit příslušnou rolí přes (SecurityTrait)Route::secure nebo přes security.access_rules
+
+        //routy se zabezpečí buď tak, že se nastaví url prefix v security.access_rules
+        //nebo při definování routy v Controller::connect (či kdekoliv jinde) na routě zavoláme Route::secure (viz SecuredController)
 
         $security   =
         [
