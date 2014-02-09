@@ -87,7 +87,6 @@ class Application extends \Core\Application
             'security.access_rules' =>
             [
                 [ '^/admin', 'ROLE_ADMIN', 'https' ] ,
-                [ '^/secured' , 'ROLE_USER' , 'https' ] ,
                 [ '^/login' , 'IS_AUTHENTICATED_ANONYMOUSLY' , 'https' ] ,
                 [ '^/login_check' , 'IS_AUTHENTICATED_ANONYMOUSLY' , 'https' ] ,
                 [ '^/.*' , 'IS_AUTHENTICATED_ANONYMOUSLY' ] ,

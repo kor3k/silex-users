@@ -28,12 +28,33 @@ class User implements UserInterface
     private $confirmationToken;
 
     const   ROLE_USER   =   'ROLE_USER';
-
     const   ROLE_ADMIN  =   'ROLE_ADMIN';
+    const   ROLE_IDDQD  =   'ROLE_IDDQD';
 
     public function __construct()
     {
         $this->setUserRoles( [ static::ROLE_USER ] );
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAvailableRoles()
+    {
+        $ref    =   new \ReflectionClass( get_called_class() );
+        $roles  =   array();
+
+        foreach( $ref->getConstants() as $name => $val )
+        {
+            if( 'ROLE_' !== substr( $name , 0 , 5 ) )
+            {
+                continue;
+            }
+
+            $roles[$val]    =   $val;
+        }
+
+        return $roles;
     }
 
     /**
@@ -177,8 +198,8 @@ class User implements UserInterface
             {
                 $role   =   $role->getRole();
             }
-            $role   =   strtoupper( $role );
-            $this->roles->add( $role );
+
+            $this->roles->add( strtoupper( $role ) );
         }
 
         return $this;

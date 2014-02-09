@@ -144,7 +144,7 @@ class UserController extends \Core\AbstractController
 
     protected function createEditForm( User $user )
     {
-        $roles  =   [ 'ROLE_USER' => 'ROLE_USER' , 'ROLE_ADMIN' => 'ROLE_ADMIN' ];
+        $roles  =   User::getAvailableRoles();
         $fb =   $this->app['form.factory']->createNamedBuilder( 'user' , 'form' , $user );
         $fb
             ->add( 'username' , 'text' , [ 'disabled' => true ] )
