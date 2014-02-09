@@ -24,7 +24,7 @@
 
 #   změnit na vlastní adresář na localhost
 #   relativní k root, takže pokud www.blabla.cz -> /index
-    RewriteRule ^/?$ /users/web/index [QSA,L,R=302]
+    RewriteRule ^/?$ /silex-users/web/index [QSA,L,R=302]
 
 #   přepisuje url tak, aby směrovaly do adresáře web/
 #    RewriteCond $1 !^web/

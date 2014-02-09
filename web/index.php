@@ -6,7 +6,7 @@
 
 // nastavení konstant s adresářem a base url
 define( 'DIR' , __DIR__.'/..' );
-define( 'WEB' ,'/users/web' );
+define( 'WEB' ,'/silex-users/web' );
 
 // načtení autoloaderu
 require_once DIR.'/vendor/autoload.php';
