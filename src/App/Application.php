@@ -61,7 +61,7 @@ class Application extends \Core\Application
                 'admin' => array(
                     'pattern' => '^/.*',
                     'anonymous' =>  true ,
-                    'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
+                    'form' => array('login_path' => '/login', 'check_path' => '/login_check' , 'use_referer' => true , 'default_target_path' => '/index' ),
                     'logout' => array( 'logout_path' => '/logout' , 'target_url' => '/login' ),
                     'switch_user' => array('parameter' => '_switch_user', 'role' => 'ROLE_ALLOWED_TO_SWITCH'),
                     'users' => $this->share(function ()
