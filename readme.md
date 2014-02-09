@@ -11,6 +11,9 @@
 - pro views používá Twig
 - pro zabezpečení používá Symfony\Security component
 - pro uchování uživatelského kontextu používá Session
+- [silex security provider](http://silex.sensiolabs.org/doc/providers/security.html)
+
+-----------
 
 ## Instalace
 
@@ -36,6 +39,40 @@
 
 7. [http://localhost/silex-users/web/index.php/index](http://localhost/silex-users/web/index.php/index)
 
+-----------
+
+## Použití
+
+Po přihlášení uživatele je ten dostupný přes `Application::user`, tedy `$app->user()` v php a `{{ app.user }}` v Twigu. 
+Pozor ovšem, hodnota metody může být: 
+	
+- **null** (na routě mimo firewall)
+- **string 'anon.'** (na routě za firewallem autorizované anonymně) 
+- **Symfony\Component\Security\Core\User\UserInterface** (na routě za fw autorizované plně)
+
+Takže je lepší před přístupem kontrolovat roli `IS_AUTHENTICATED_FULLY` nebo  `ROLE_USER` pomocí `Application::isGranted`:
+
+        if( $app->isGranted( 'ROLE_USER' ) )
+        {
+     	  echo $app->user()->getUsername();
+        }  
+        else
+        {
+     	  echo 'anonymous';
+        }
+
+a v Twigu:
+
+       {% if is_granted( 'ROLE_USER' ) %}
+           {{ app.user.username }}    
+       {% else %} 
+           anonymous
+       {% endif %}   
+
+- metoda `Application::isGranted` vrací **true** | **false** pokud uživatel má nebo nemá danou roli.
+- pokud ji zavoláme s druhým argumentem **true**, tak v případě, že uživatel roli nemá, nevrací false, nýbrž vyhodí `AccessDeniedException`: 
+
+        $app->isGranted( 'ROLE_USER' , true );
 
 -----------
 
@@ -70,8 +107,4 @@
  - [silex repo](http://github.com/fabpot/Silex)
 
 -----------
-
-
-
-
 
