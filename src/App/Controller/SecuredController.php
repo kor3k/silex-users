@@ -2,12 +2,8 @@
 
 namespace App\Controller;
 
-use Silex\Route\SecurityTrait;
-
 class SecuredController extends \Core\AbstractController
 {
-    use SecurityTrait;
-
     public function getIndexAction()
     {
         return $this->app->render( 'secured.html.twig' , [] );

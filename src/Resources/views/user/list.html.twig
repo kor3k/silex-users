@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Registration complete
+    {{ parent() }} - User list
 {% endblock title %}
 
 {% block content %}
@@ -9,15 +9,26 @@
     vyžaduje <strong>ROLE_ADMIN</strong><br />
 
     <table class="striped">
+        <tr>
+            <th>username</th>
+            <th>email</th>
+            <th>created</th>
+            <th>last login</th>
+            <th>roles</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
     {% for user in users %}
         <tr>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.created | date( 'Y-m-d H:i:s' ) }}</td>
+            <td>{{ user.lastLogin ? user.lastLogin | date( 'Y-m-d H:i:s' ) : '-' }}</td>
             <td>{{ user.roles | join( ',' ) }}</td>
             <td><a href="{{ url( 'edit_user' , { 'user' : user.id } ) }}">upravit</a></td>
             <td>
-                <form method="post" action="{{ url( 'delete_user' , { 'user' : user.id } ) }}">
+                <form onsubmit="return window.confirm( 'smazat uživatele {{ user.username }}?' )" method="post" action="{{ url( 'delete_user' , { 'user' : user.id } ) }}">
                     <input type="hidden" name="_method" value="DELETE" />
                     <a href="#" onclick="$(this).parent().submit()">smazat</a>
                 </form>

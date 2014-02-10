@@ -2,15 +2,13 @@
 
 namespace App\Controller;
 
-use Silex\Route\SecurityTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\SecurityEvents ,
     Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use App\Entity\User;
 
 class SecurityController extends \Core\AbstractController
 {
-    use SecurityTrait;
-
     public function loginAction( Request $request )
     {
         return $this->app->render( 'login.html.twig' ,
@@ -26,7 +24,12 @@ class SecurityController extends \Core\AbstractController
         $this->app->on( SecurityEvents::INTERACTIVE_LOGIN ,
             function( InteractiveLoginEvent $event )
             {
-                $this->updateLastLogin( $event );
+                $user   =   $event->getAuthenticationToken()->getUser();
+
+                if( $user instanceof User )
+                {
+                    $this->updateLastLogin( $user );
+                }
             });
 
         $controllers->get( '/login', array( $this , 'loginAction' ) )
@@ -37,9 +40,8 @@ class SecurityController extends \Core\AbstractController
     }
 
 
-    protected function updateLastLogin( InteractiveLoginEvent $event , $oncePerDay = false )
+    protected function updateLastLogin( User $user , $oncePerDay = false )
     {
-        $user   =   $event->getAuthenticationToken()->getUser();
         $now    =   new \DateTime();
         $last   =   $user->getLastLogin();
 
