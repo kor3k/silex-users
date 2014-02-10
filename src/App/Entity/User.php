@@ -194,12 +194,7 @@ class User implements UserInterface
         $this->roles    =   new ArrayCollection();
         foreach( $roles as $key => $role )
         {
-            if( $role instanceof Role )
-            {
-                $role   =   $role->getRole();
-            }
-
-            $this->roles->add( strtoupper( $role ) );
+            $this->roles->add( strtoupper( (string)$role ) );
         }
 
         return $this;
