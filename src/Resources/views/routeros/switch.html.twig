@@ -12,6 +12,7 @@
             <th>uptime</th>
             <th>rx</th>
             <th>tx</th>
+            <th>group</th>
             <th>disconnect</th>
             <th></th>
         </tr>
@@ -23,6 +24,7 @@
             <td>{{ user.vars.value['uptime'] }}</td>
             <td>{{ user.vars.value['bytes-in'] }}</td>
             <td>{{ user.vars.value['bytes-out'] }}</td>
+            <td>{{ user.vars.value['profile'] }}</td>
             <td>{{ form_widget( user.disabled ) }}</td>
             <td>
                 <div style="background-color: {{ user.vars.value['disabled'] ? 'red' : 'green' }}">&nbsp;</div>
@@ -33,7 +35,7 @@
         <tr>
             <td><button onclick="checkAllCheckboxes( $(this).parents('form') );return false;">all</button></td>
             <td><button onclick="uncheckAllCheckboxes( $(this).parents('form') );return false;">none</button></td>
-            <td colspan="4" style="text-align: right;">{{ form_widget( form.save ) }}</td>
+            <td colspan="5" style="text-align: right;">{{ form_widget( form.save ) }}</td>
             <td></td>
         </tr>
 
