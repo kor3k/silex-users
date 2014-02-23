@@ -18,7 +18,7 @@
 
     {% for user in form.users %}
         <tr>
-            <td>{{ user.vars.value['name'] }}</td>
+            <td>{{ form_label( user.disabled , user.vars.value['name'] ) }}</td>
             <td>{{ user.vars.value['address'] | default( '' ) }}</td>
             <td>{{ user.vars.value['uptime'] }}</td>
             <td>{{ user.vars.value['bytes-in'] }}</td>

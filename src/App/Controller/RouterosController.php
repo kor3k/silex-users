@@ -103,19 +103,36 @@ class RouterosController extends \Core\AbstractController
 
             if( $form->isValid() )
             {
+                $util->changeMenu( '/ip hotspot user' );
+
                 if( $form->get( 'on' )->isClicked() )
                 {
-                    $util->changeMenu( '/ip hotspot user' );
                     $util->enable( RouterOS\Query::where( 'profile', 'intr' ) );
                 }
                 else if( $form->get( 'off' )->isClicked() )
                 {
-                    $util->changeMenu( '/ip hotspot user' );
                     $util->disable( RouterOS\Query::where( 'profile', 'intr' ) );
                 }
                 else
                 {
-                    //loop users
+                    $users  =   $form->get( 'users' )->getData();
+                    $toDisable  =   array();
+                    $toEnable   =   array();
+
+                    foreach( $users as $key => $user )
+                    {
+                        if( $user['disabled'] )
+                        {
+                            $toDisable[]  =   $user['.id'];
+                        }
+                        else
+                        {
+                            $toEnable[]   =   $user['.id'];
+                        }
+                    }
+
+                    $util->enable( implode( ',' , $toEnable ) );
+                    $util->disable( implode( ',' , $toDisable ) );
                 }
 
                 return $this->app->redirect( $this->app->url( 'routeros_get_switch' ) );
@@ -123,7 +140,6 @@ class RouterosController extends \Core\AbstractController
         }
 
         return $this->app->render( '/routeros/switch.html.twig' , [
-            'users'  =>  $this->fetchUsers() ,
             'form'   =>  $form->createView() ,
         ] );
     }
