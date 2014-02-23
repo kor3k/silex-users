@@ -23,13 +23,7 @@ class RouterosController extends \Core\AbstractController
 
     public function switchAction( Request $request )
     {
-        /**
-         * @var $client \PEAR2\Net\RouterOS\Util
-         */
-        $util   =   $this->app['routeros_util'];
-        /**
-         * @var $client \PEAR2\Net\RouterOS\Client
-         */
+        $util       =   $this->app['routeros_util'];
         $form       =   $this->createSwitchForm( $this->fetchUsers() );
 
 
@@ -91,11 +85,6 @@ class RouterosController extends \Core\AbstractController
 
     protected function connect( \Silex\ControllerCollection $controllers )
     {
-        $controllers->get( '/', array( $this , 'indexAction' ) )
-            ->bind( 'routeros_index' )
-//            ->secure( 'ROLE_INTR' )
-        ;
-
         $controllers->get( '/switch', array( $this , 'switchAction' ) )
             ->bind( 'routeros_get_switch' )
 //            ->secure( 'ROLE_INTR' )
