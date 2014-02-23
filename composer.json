@@ -6,7 +6,8 @@
     "prefer-stable": true ,
     
     "require": {
-        "kor3k/silex": "dev-master"
+        "kor3k/silex": "dev-master" ,
+        "pear2/net_routeros": "dev-master"
     },
             
     "repositories": [

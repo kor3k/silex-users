@@ -1,0 +1,42 @@
+{% extends "layout.html.twig" %}
+
+{% block title parent() ~ ' - Intr switch' %}
+
+{% block content %}
+
+    {{ form_start( form ) }}
+    <table>
+        <tr>
+            <th>name</th>
+            <th>address</th>
+            <th>uptime</th>
+            <th>rx</th>
+            <th>tx</th>
+            <th>disconnect</th>
+            <th></th>
+        </tr>
+
+    {% for user in form.users %}
+        <tr>
+            <td>{{ user.vars.value['name'] }}</td>
+            <td>{{ user.vars.value['address'] | default( '' ) }}</td>
+            <td>{{ user.vars.value['uptime'] }}</td>
+            <td>{{ user.vars.value['bytes-in'] }}</td>
+            <td>{{ user.vars.value['bytes-out'] }}</td>
+            <td>{{ form_widget( user.disabled ) }}</td>
+            <td>
+                <div style="background-color: {{ user.vars.value['disabled'] ? 'red' : 'green' }}">&nbsp;</div>
+            </td>
+        </tr>
+    {% endfor %}
+
+        <tr>
+            <td>{{ form_widget( form.on ) }}</td>
+            <td>{{ form_widget( form.off ) }}</td>
+            <td colspan="4" style="text-align: right;">{{ form_widget( form.save ) }}</td>
+            <td></td>
+        </tr>
+
+    </table>
+    {{ form_end( form ) }}
+{% endblock content %}

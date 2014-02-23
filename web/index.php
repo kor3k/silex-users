@@ -35,7 +35,11 @@ $config   =	array(
     'response_ttl'	    =>  3600 ,
     'locale'		    =>  'cs' ,
     'debug'		        =>  true ,
-        
+
+    'routeros_ip'       =>  '172.16.120.1' ,
+    'routeros_user'     =>  'api' ,
+    'routeros_password' =>  '493n9k' ,
+
 );
 
 //instancování aplikace/silexu, nabootování
@@ -56,6 +60,9 @@ $app->mount( '/' , $frontend() );
 
 $backend	=   new \App\Controller\BackendController( $app );
 $app->mount( '/admin' , $backend() );
+
+$routeros	=   new \App\Controller\RouterosController( $app );
+$app->mount( '/routeros' , $routeros() );
 
 //spuštění aplikace
 //na ostrém spustíme z cache
