@@ -31,12 +31,32 @@
     {% endfor %}
 
         <tr>
-            <td>{{ form_widget( form.on ) }}</td>
-            <td>{{ form_widget( form.off ) }}</td>
+            <td><button onclick="checkAllCheckboxes( $(this).parents('form') );return false;">all</button></td>
+            <td><button onclick="uncheckAllCheckboxes( $(this).parents('form') );return false;">none</button></td>
             <td colspan="4" style="text-align: right;">{{ form_widget( form.save ) }}</td>
             <td></td>
         </tr>
 
     </table>
     {{ form_end( form ) }}
+
+    <script>
+        var checkAllCheckboxes   =   function( holder )
+        {
+            $( 'input[type=checkbox]' , holder ).each(
+                    function()
+                    {
+                        $( this ).prop( 'checked' , true );
+                    });
+        }
+
+        var uncheckAllCheckboxes   =   function( holder )
+        {
+            $( 'input[type=checkbox]' , holder ).each(
+                    function()
+                    {
+                        $( this ).prop( 'checked' , false );
+                    });
+        }
+    </script>
 {% endblock content %}

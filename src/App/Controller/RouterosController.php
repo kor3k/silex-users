@@ -4,88 +4,21 @@ namespace App\Controller;
 
 use App\Form\SwitchType;
 use PEAR2\Net\RouterOS;
+use App\RouterOSClient;
 use Symfony\Component\HttpFoundation\Request;
 
 class RouterosController extends \Core\AbstractController
 {
-    public function indexAction()
-    {
-        /**
-         * @var $client \PEAR2\Net\RouterOS\Client
-         */
-        $client = $this->app['routeros_client'];
-
-        var_dump($this->fetchUsers());
-
-
-        $responses = $client->sendSync( new RouterOS\Request( '/ip hotspot user print' ) );
-
-        foreach( $responses as $key => $response )
-        {
-            if( $response->getType() !== RouterOS\Response::TYPE_DATA )
-            {
-                continue;
-            }
-
-            var_dump( $response->getAllArguments() );
-        }
-
-        foreach ($responses as $response) {
-            if ($response->getType() === RouterOS\Response::TYPE_DATA) {
-                echo 'IP: ', $response->getArgument('address'),
-                ' MAC: ', $response->getArgument('mac-address'),
-                "\n";
-            }
-        }
-//
-
-        return 'ok';
-    }
-
-    /**
-     * @return array
-     */
     protected function fetchUsers()
     {
-        /**
-         * @var $client \PEAR2\Net\RouterOS\Client
-         */
         $client     =   $this->app['routeros_client'];
-        $responses  =   $client->sendSync( new RouterOS\Request( '/ip hotspot user print' ) );
-        $users      =   $this->transformResponses( $responses );
+        $request    =   new RouterOS\Request( '/ip hotspot user print' );
+        $request->setQuery( RouterOS\Query::where( 'profile', 'intr' ) );
+        $users      =   $client->fetch( $request );
+
+        unset( $client );
 
         return $users;
-    }
-
-    protected function transformResponses( $responses , $type = RouterOS\Response::TYPE_DATA )
-    {
-        $ret    =   array();
-
-        foreach( $responses as $key => $response )
-        {
-            if( $response->getType() !== $type )
-            {
-                continue;
-            }
-
-            $args    =  $response->getAllArguments();
-            foreach( $args as $argKey => &$argVal )
-            {
-                if( 'false' === $argVal )
-                {
-                    $argVal =   false;
-                }
-                else if( 'true' === $argVal )
-                {
-                    $argVal =   true;
-                }
-            }
-            unset($argKey,$argVal);
-
-            $ret[] =   $args;
-        }
-
-        return $ret;
     }
 
     public function switchAction( Request $request )
@@ -94,7 +27,10 @@ class RouterosController extends \Core\AbstractController
          * @var $client \PEAR2\Net\RouterOS\Util
          */
         $util   =   $this->app['routeros_util'];
-        $form   =   $this->createSwitchForm( $this->fetchUsers() );
+        /**
+         * @var $client \PEAR2\Net\RouterOS\Client
+         */
+        $form       =   $this->createSwitchForm( $this->fetchUsers() );
 
 
         if( 'PUT' === $request->getMethod() )
@@ -105,35 +41,25 @@ class RouterosController extends \Core\AbstractController
             {
                 $util->changeMenu( '/ip hotspot user' );
 
-                if( $form->get( 'on' )->isClicked() )
-                {
-                    $util->enable( RouterOS\Query::where( 'profile', 'intr' ) );
-                }
-                else if( $form->get( 'off' )->isClicked() )
-                {
-                    $util->disable( RouterOS\Query::where( 'profile', 'intr' ) );
-                }
-                else
-                {
-                    $users  =   $form->get( 'users' )->getData();
-                    $toDisable  =   array();
-                    $toEnable   =   array();
+                $users      =   $form->get( 'users' )->getData();
+                $toDisable  =   array();
+                $toEnable   =   array();
 
-                    foreach( $users as $key => $user )
+                foreach( $users as $key => $user )
+                {
+                    if( $user['disabled'] )
                     {
-                        if( $user['disabled'] )
-                        {
-                            $toDisable[]  =   $user['.id'];
-                        }
-                        else
-                        {
-                            $toEnable[]   =   $user['.id'];
-                        }
+                        $toDisable[]  =   $user['.id'];
+                        $this->killConnections( $user['name'] );
                     }
-
-                    $util->enable( implode( ',' , $toEnable ) );
-                    $util->disable( implode( ',' , $toDisable ) );
+                    else
+                    {
+                        $toEnable[]   =   $user['.id'];
+                    }
                 }
+
+                $util->enable( implode( ',' , $toEnable ) );
+                $util->disable( implode( ',' , $toDisable ) );
 
                 return $this->app->redirect( $this->app->url( 'routeros_get_switch' ) );
             }
@@ -142,6 +68,14 @@ class RouterosController extends \Core\AbstractController
         return $this->app->render( '/routeros/switch.html.twig' , [
             'form'   =>  $form->createView() ,
         ] );
+    }
+
+    private function killConnections( $username )
+    {
+        $util   =   $this->app['routeros_util'];
+        $util->changeMenu( '/ip hotspot active' );
+        $conns  =   $util->find( RouterOS\Query::where( 'user', $username ) );
+        $util->remove( $conns );
     }
 
     protected function createSwitchForm( $users )
@@ -179,7 +113,7 @@ class RouterosController extends \Core\AbstractController
             $password   =   $this->app['routeros_password'];
             $ip         =   $this->app['routeros_ip'];
 
-            return new RouterOS\Client( $ip , $username , $password );
+            return new RouterOSClient( $ip , $username , $password );
         };
 
         $this->app['routeros_util']  =

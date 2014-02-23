@@ -11,10 +11,7 @@ class SwitchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add( 'on' , 'submit' , [ 'label'  =>  'on' ] )
-            ->add( 'off' , 'submit' , [ 'label'  =>  'off' ] )
             ->add( 'save' , 'submit' , [ 'label'  =>  'save' ] )
-
             ->add( 'users' , 'collection' ,
                 [
                     'type'	=>  new SwitchUserType() ,
