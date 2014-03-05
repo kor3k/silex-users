@@ -23,6 +23,7 @@ class Application extends \Core\Application
         $this->initDoctrineOrm( $this['database_name'] );
 //        $this->initBasicHttpSecurity( '^/admin' , [ 'admin' => [ 'ROLE_ADMIN' , $this['admin_password'] ] ] );
         $this->initHttpCache( $this['cache_ttl'] );
+        $this->initWhoops();
 
         $this->initNativeSession();
         $this->initSecurity();
