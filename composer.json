@@ -12,7 +12,7 @@
     "repositories": [
         {
             "type": "git",
-            "url":  "https://github.com/kor3k/silex.git"
+            "url":  "https://bitbucket.org/kor3k/silex.git"
         }
     ],            
             
