@@ -1,6 +1,8 @@
 @charset "UTF-8";
 @import 'reset.css';
+@import 'print.css';
 @import 'text.css';
+@import url(https://fonts.googleapis.com/css?family=Roboto&subset=latin,latin-ext);
 
 *
 {
@@ -9,56 +11,66 @@
     box-sizing: border-box;         /* Opera/IE 8+ */       
 }
 
+body
+{
+    font-family: 'Roboto' , 'Arial' , sans-serif;
+}
+
 /*************/
 
-#page_container
+#page-container
 {
     background: violet;
 }
 
-#page_navigation
+#page-navigation
 {
     background: darkmagenta;
 }
 
-#page_navigation a , #page_navigation a:visited
+#page-navigation a , #page-navigation a:visited
 {
     color: white;
     text-decoration: none;
 }
 
-#page_navigation a:hover
+#page-navigation a:hover
 {
     text-decoration: underline;
 }
 
-#page_header section
+#page-navigation menu li
+{
+    list-style: none;
+}
+
+#page-header section
 {
     text-align: center;
 }
 
-#page_header section:nth-of-type(1)
+#page-header section:nth-of-type(1)
 {
     background: darkgoldenrod;
 }
 
-#page_header section:nth-of-type(2)
+#page-header section:nth-of-type(2)
 {
     background: darkorange;
 }
 
-#page_header section:nth-of-type(3)
+#page-header section:nth-of-type(3)
 {
     background: darkred;
 }
 
-#page_content
+#page-content
 {
     background: darkkhaki;
     padding: 5px;
 }
 
-#page_footer
+#page-footer
 {
     background: darkslateblue;
     color: white;

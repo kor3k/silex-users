@@ -1,15 +1,10 @@
-/*
-  960 Grid System ~ Text CSS.
-  Learn more ~ http://960.gs/
-
-  Licensed under GPL and MIT.
-*/
-
-/* `Basic HTML
-----------------------------------------------------------------------------------------------------*/
-
 body {
-  font: 13px/1.5 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
+  font: 13px / 1.5 "Helvetica", Arial, "Liberation Sans", FreeSans, sans-serif;
+}
+
+pre,
+code {
+  font-family: "DejaVu Sans Mono", Monaco, Consolas, monospace;
 }
 
 hr {
@@ -18,9 +13,6 @@ hr {
   clear: both;
   height: 0;
 }
-
-/* `Headings
-----------------------------------------------------------------------------------------------------*/
 
 h1 {
   font-size: 25px;
@@ -45,9 +37,6 @@ h5 {
 h6 {
   font-size: 15px;
 }
-
-/* `Spacing
-----------------------------------------------------------------------------------------------------*/
 
 ol {
   list-style: decimal;
@@ -79,3 +68,4 @@ fieldset,
 figure {
   margin-bottom: 20px;
 }
+

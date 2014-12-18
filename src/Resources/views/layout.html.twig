@@ -10,41 +10,51 @@
 
 {% block body %}
 
-<div class="container_12 clearfix" id="page_container">
+<div class="grid-container">
+    <div class="grid-100 grid-parent" id="page-container">
 
-    <header id="page_header" class="grid_12">
-        {% block header %}
-        <section class="grid_4 alpha">
-            silex
-        </section>
+        <header id="page-header" class="">
+            {% block header %}
+                <section class="grid-33 tablet-grid-33 mobile-grid-100">
+                    silex
+                </section>
 
-        <section class="grid_4">
-            demo
-        </section>
+                <section class="grid-33 tablet-grid-33 mobile-grid-100">
+                    demo
+                </section>
 
-        <section class="grid_4 omega">
-            app
-        </section>
-        {% endblock header %}
-    </header>
+                <section class="grid-33 tablet-grid-33 mobile-grid-100">
+                    app
+                </section>
+            {% endblock header %}
+        </header>
+        <div class="clear"></div>
 
-    <nav id="page_navigation" class="grid_3">
-        {% block navigation %}
-            {% include 'navigation.html.twig' %}
-        {% endblock navigation %}
-    </nav>
+        <nav class="grid-25 tablet-grid-25 mobile-grid-100" id="page-navigation">
+            {% block navigation %}
+                {% include 'navigation.html.twig' %}
+            {% endblock navigation %}
+        </nav>
 
-    <article id="page_content" class="grid_9">
-        {% block content 'content' %}
-    </article>
-    
-    <footer id="page_footer" class="grid_12">
-        {% block footer %}
-            &copy; yo mama {{ 'now' | date( 'Y' ) }}
-        {% endblock footer %}
-    </footer>
-    
-</div>    
+
+        <article class="grid-75 tablet-grid-75 mobile-grid-100" id="page-content">
+            {% block content 'content' %}
+        </article>
+
+        <div class="clear"></div>
+
+
+        <footer class="grid-100 tablet-grid-100 mobile-grid-100" id="page-footer">
+            {% block footer %}
+                &copy; yo mama {{ 'now' | date( 'Y' ) }}
+            {% endblock footer %}
+        </footer>
+
+
+    </div>
+    <div class="clear"></div>
+
+</div>
 
 {% endblock body %}
 
@@ -68,10 +78,12 @@
     
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/master.css" />
+    <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/unsemantic-grid-base-no-ie7.css" />
+
     <noscript>
         <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/mobile.css" />
         <style>
-            #page_header section:nth-of-type(2)
+            #page-header section:nth-of-type(2)
             {
                 margin-left: 0;
                 margin-right: 0;
@@ -95,16 +107,6 @@ onScreenResize = function( i , width )
     {% endif %}
     
     {% block onScreenResize %}
-
-        if( 0 == i )
-        {
-            $( '#page_header section:nth-of-type(2)' ).addClass( 'alpha omega' );
-        }
-        else
-        {
-            $( '#page_header section:nth-of-type(2)' ).removeClass( 'alpha omega' );
-        }
-
     {% endblock onScreenResize %}       
 }
 
@@ -134,14 +136,11 @@ callback: function(i,width)
 // Last range entry is the maximum.
 // Separate ranges by "to" keyword.
 range: [
-    '0px    to 760px  = mobile.css',
-    '760px  to 980px  = 720.css',
-    '980px  to 1280px = 960.css',
-    '1280px to 1600px = 1200.css',
-    '1600px to 1920px = 1560.css',
-    '1940px to 2540px = 1920.css',
-    '2540px           = 2520.css'
+    '0 to 767px = mobile.css',
+    '768px to 1024px = tablet.css' ,
+    '1024px = desktop.css'
 ]
+
 };    
 
 //]]>       
