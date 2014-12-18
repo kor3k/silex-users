@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Component\Validator\Constraints;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 

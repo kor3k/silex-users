@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block meta %}
+    {{ parent() }}
+    <meta property="og:title" content="{{ block('title') | trim }}" />
+    <meta property="og:description" content="{{ block( 'meta_description' ) | trim }}" />
+    <meta property="og:image" content="{{ meta_image | default( 'http://' ~ app.request.host ~ '/img/facebook.png' ) }}" />
+    <meta property="og:image:secure_url" content="{{ meta_image | default( 'https://' ~ app.request.host ~ '/img/facebook.png' ) }}" />
+{% endblock meta %}
+
 {% block body %}
 
 <div class="container_12 clearfix" id="page_container">

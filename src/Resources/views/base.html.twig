@@ -13,12 +13,8 @@
     <meta name="robots" content="{{ meta_robots | default( meta_robots_follow is defined ? 'all,follow' : 'all,nofollow' ) }}" />
     <meta name="description" content="{% block meta_description '' %}" />
     <meta name="keywords" content="{% block meta_keywords '' %}" />
-    <meta name="author" content="{{ meta_author | default( '' ) }}" /> 
-
-    <meta property="og:title" content="{{ block('title') | trim }}" />
-    <meta property="og:description" content="{{ block( 'meta_description' ) | trim }}" />
-    <meta property="og:image" content="{{ meta_image | default( 'http://' ~ app.request.host ~ '/img/facebook.png' ) }}" />     
-{% endblock %}      
+    <meta name="author" content="{{ meta_author | default( '' ) }}" />
+{% endblock %}
 
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     
@@ -26,7 +22,7 @@
                               
     {% block favicon %}    
     <link rel="icon" href="./favicon.ico" />
-    <link rel="shortcut icon" href="/favicon.ico" />
+    {#<link rel="shortcut icon" href="/favicon.ico" />#}
     {% endblock %}             
             
     {% block stylesheets %}               
