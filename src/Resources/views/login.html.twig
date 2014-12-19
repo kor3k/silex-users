@@ -6,27 +6,29 @@
 
 {% block content %}
 
-<form action="{{ url('login_check') }}" method="post">
-    <table>
-        <tr>
-            <th>Uživatelské jméno / Email:</th>
-            <td><input type="text" name="_username" value="{{ last_username }}" /></td>
-        </tr>
-        <tr>
-            <th>Heslo:</th>
-            <td><input type="password" name="_password" value="" /></td>
-        </tr>
-        <tr>
-            <th></th>
-            <td><input type="submit" value="přihlásit" /></td>
-        </tr>
-    </table>
+<form action="{{ url('login_check') }}" method="post" role="form">
+
+    <div class="form-group">
+        <label for="_username">Uživatelské jméno / Email:</label>
+        <input type="text" name="_username" id="_username" value="{{ last_username }}" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="_password">Heslo:</label>
+        <input type="password" name="_password" id="_password" value="" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="přihlásit" class="btn btn-primary" />
+        <a href="{{ url( 'get_register_user' ) }}" class="btn btn-warning">Register</a>
+    </div>
+
+
 </form>
 
 <div>
     {{ last_error }}
 </div>
 
-<a href="{{ url( 'get_register_user' ) }}">Register</a>
 
 {% endblock content %}

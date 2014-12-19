@@ -74,11 +74,15 @@
 
 {% block javascripts %}
     <script src="{{ constant( 'WEB' ) | default( '.' ) }}/js/jquery.js"></script>
+    <script src="{{ constant( 'WEB' ) | default( '.' ) }}/bootstrap/js/bootstrap.min.js"></script>
 {% endblock javascripts %}
     
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/master.css" />
     <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/unsemantic-grid-base-no-ie7.css" />
+
+    <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/bootstrap/css/bootstrap-theme.css" />
 
     <noscript>
         <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/mobile.css" />
