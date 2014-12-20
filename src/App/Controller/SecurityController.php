@@ -11,7 +11,7 @@ class SecurityController extends \Core\AbstractController
 {
     public function loginAction( Request $request )
     {
-        return $this->app->render( 'login.html.twig' ,
+        return $this->app->render( '/user/login.html.twig' ,
                                     [
                                        'last_username' =>   $this->app['session']->get( '_security.last_username' ) ,
                                        'last_error'    =>   $this->app->trans( $this->app['security.last_error']( $request ) ) ,

@@ -1,20 +1,87 @@
-<menu>
-    {% if app.user and is_granted( 'ROLE_USER' ) %}
-        <li><a href="{{ url( 'logout' ) }}">Logout</a></li>
-        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-            <li><a href="{{ url( 'index' , { '_switch_user' : '_exit' , 'nonce' : 'now' | date( 'U' ) } ) }}">{{ app.user.username }}</a></li>
-        {% else %}
-            <li>{{ app.user.username }}</li>
+<div class="navbar navbar-default grid-100" role="navigation">
+<div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url( 'index' ) }}">Silex User App</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav">
+            {{ _self.navLink( 'index' , 'Home' ) }}
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Public<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    {{ _self.navLink( 'partners' , 'Partners' ) }}
+                    <li class="divider"></li>
+                    {{ _self.navLink( '404' , 'Not found page' ) }}
+                    {{ _self.navLink( 'error' , 'Error page' ) }}
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Secured<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    {{ _self.navLink( 'secured_index' , 'Secured area' ) }}
+                    <li class="divider"></li>
+                    {{ _self.navLink( 'admin_index' , 'Admin' ) }}
+                    {{ _self.navLink( 'get_users' , 'User list' ) }}
+                </ul>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    {{- is_granted( 'ROLE_USER' ) ? app.user.username : 'User' -}}
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+
+                {% if app.user and is_granted( 'ROLE_USER' ) %}
+                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                        <li><a href="{{ url( 'index' , { '_switch_user' : '_exit' , 'nonce' : 'now' | date( 'U' ) } ) }}">Stop impersonating</a></li>
+                    {% endif %}
+                    {{ _self.navLink( 'logout' , 'Logout' ) }}
+                {% else %}
+                    {{ _self.navLink( 'login' , 'Login' ) }}
+                    {{ _self.navLink( 'get_register_user' , 'Register' ) }}
+                {% endif %}
+
+                </ul>
+            </li>
+        </ul>
+
+        {% if not app.user %}
+            <form action="{{ url('login_check') }}" method="post" class="navbar-form navbar-right" role="form">
+
+                <div class="form-group">
+                    <input type="text" name="_username" id="_username" placeholder="Username" class="form-control" />
+                    <input type="password" name="_password" id="_password" placeholder="Password" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-default">Login</button>
+            </form>
         {% endif %}
+
+
+
+
+    </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</div>
+
+{% macro navLink( route , title ) %}
+    {% if app.request.get( "_route" ) == route %}
+        {% set active = true %}
     {% else %}
-        <li><a href="{{ url( 'login' ) }}">Login</a></li>
-        <li><a href="{{ url( 'get_register_user' ) }}">Register user</a></li>
+        {% set active = false %}
     {% endif %}
-    <li><a href="{{ url( 'secured_index' ) }}">Secured area</a></li>
-    <li><a href="{{ url( 'get_users' ) }}">User list</a></li>
-    <li><a href="{{ url( 'index' ) }}">Home page</a></li>
-    <li><a href="{{ url( 'partners' ) }}">Partners</a></li>
-    <li><a href="{{ url( '404' ) }}">Not found page</a></li>
-    <li><a href="{{ url( 'error' ) }}">Error page</a></li>
-    <li><a href="{{ url( 'admin_index' ) }}">Admin</a></li>
-</menu>
+    <li{{ active ? ' class="active"' }}><a href="{{ url( route ) }}">{{ title }}{{ active ? ' <span class="sr-only">(current)</span>' }}</a></li>
+{% endmacro %}
