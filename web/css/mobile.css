@@ -5,3 +5,9 @@
 {
     overflow: hidden;
 }
+
+ul.dropdown-menu li.form
+{
+    padding-left: 10px;
+    padding-right: 10px;
+}
