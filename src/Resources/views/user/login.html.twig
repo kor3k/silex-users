@@ -42,7 +42,7 @@
 
     {% if last_error %}
         <div class="alert alert-danger">
-            {{ last_error }}
+            {{ app.translator.trans( last_error ) }}
         </div>
     {% endif %}
 
