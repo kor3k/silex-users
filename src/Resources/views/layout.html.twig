@@ -70,18 +70,12 @@
     <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/master.css" />
     <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/unsemantic-grid-base-no-ie7.css" />
 
-    <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/bootstrap/css/bootstrap-theme.css" />
+    <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/bootstrap/css/flatly.min.css" />
+    {#<link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/bootstrap/css/bootstrap.css" />#}
+    {#<link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/bootstrap/css/bootstrap-theme.css" />#}
 
     <noscript>
         <link rel="stylesheet" href="{{ constant( 'WEB' ) | default( '.' ) }}/css/mobile.css" />
-        <style>
-            #page-header section:nth-of-type(2)
-            {
-                margin-left: 0;
-                margin-right: 0;
-            }
-        </style>
     </noscript>       
 {% endblock stylesheets %}    
     
