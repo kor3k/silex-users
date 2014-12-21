@@ -91,7 +91,7 @@ class Application extends \Core\Application
                 [ '^/admin', 'ROLE_ADMIN', 'https' ] ,
                 [ '^/login' , 'IS_AUTHENTICATED_ANONYMOUSLY' , 'https' ] ,
                 [ '^/login_check' , 'IS_AUTHENTICATED_ANONYMOUSLY' , 'https' ] ,
-                [ '^/.*' , 'IS_AUTHENTICATED_ANONYMOUSLY' ] ,
+                [ '^/.*' , 'IS_AUTHENTICATED_ANONYMOUSLY' , 'https' ] ,
             ] ,
         ];
 
