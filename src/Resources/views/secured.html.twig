@@ -5,10 +5,17 @@
 {% endblock title %}
 
 {% block content %}
-    <h2>Secured</h2>
 
-    zabezpečená oblast<br />
-    vyžaduje <strong>ROLE_USER</strong><br />
-    není dostupná anonymům
+    <div class="panel panel-info grid-100 grid-parent">
+        <div class="panel-heading">
+            <h2 class="panel-title">Secured</h2>
+        </div>
+
+        <div class="panel-body">
+            zabezpečená oblast<br />
+            vyžaduje <span class="label label-warning">ROLE_USER</span> <br />
+            není dostupná anonymům
+        </div>
+    </div>
 
 {% endblock content %}

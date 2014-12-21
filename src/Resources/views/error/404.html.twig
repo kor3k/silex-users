@@ -4,12 +4,17 @@
     {{ parent() }} - Page not found {{ error.statusCode | default('') }}
 {% endblock title %}
 
-{% block content %}  
-    
-    <h2><span style="color: red;">Page not found</span> {{ error.statusCode | default('') }}</h2>                
+{% block content %}
 
-    <p>
-        Page {{ app.request.uri }} was not found {{ error.statusCode | default('') }} {{ error.message | default('') }}
-    </p>
+    <div class="panel panel-danger grid-100 grid-parent">
+        <div class="panel-heading">
+            <h2 class="panel-title">Page not found {{ error.statusCode | default('') }}</h2>
+        </div>
+
+        <div class="panel-body">
+                Page {{ app.request.uri }} was not found {{ error.statusCode | default('') }} {{ error.message | default('') }}
+        </div>
+    </div>
+
 
 {% endblock content %}  

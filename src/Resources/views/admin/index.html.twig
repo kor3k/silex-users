@@ -1,8 +1,16 @@
 {% extends "admin/layout.html.twig" %}
 
 {% block content %}
-        <h2>Admin</h2>
 
-        admin<br />
-        vyžaduje <strong>ROLE_ADMIN</strong>
+        <div class="panel panel-info grid-100 grid-parent">
+                <div class="panel-heading">
+                        <h2 class="panel-title">Admin</h2>
+                </div>
+
+                <div class="panel-body">
+                        admin<br />
+                        vyžaduje <span class="label label-danger">ROLE_ADMIN</span>
+                </div>
+        </div>
+
 {% endblock content %}

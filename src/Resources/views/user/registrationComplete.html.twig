@@ -5,8 +5,15 @@
 {% endblock title %}
 
 {% block content %}
-    <h2>Registration complete</h2>
 
-    Uživatel "{{ user.username }}" ( {{ user.email }} ) byl zaregistrován.
+    <div class="panel panel-success grid-100 grid-parent">
+        <div class="panel-heading">
+            <h2 class="panel-title">Registration complete</h2>
+        </div>
+
+        <div class="panel-body">
+            Uživatel "{{ user.username }}" ( {{ user.email }} ) byl zaregistrován.
+        </div>
+    </div>
 
 {% endblock content %}

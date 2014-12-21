@@ -5,11 +5,16 @@
 {% endblock title %}
 
 {% block content %}
-    <h2>Edit user</h2>
 
-    <table>
-    </table>
+    <div class="panel panel-info grid-100 grid-parent">
+        <div class="panel-heading">
+            <h2 class="panel-title">Edit user</h2>
+        </div>
 
-    {{ form( form , { 'method' : 'PUT' , 'action' : url( 'put_user' , { 'user' : user.id } ) } ) }}
+        <div class="panel-body">
+            {{ form( form , { 'method' : 'PUT' , 'action' : url( 'put_user' , { 'user' : user.id } ) } ) }}
+        </div>
+    </div>
+
 
 {% endblock content %}

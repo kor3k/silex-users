@@ -49,13 +49,17 @@
                     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                         <li><a href="{{ url( 'index' , { '_switch_user' : '_exit' , 'nonce' : 'now' | date( 'U' ) } ) }}">Stop impersonating</a></li>
                     {% else %}
-                        <li class="form">
-                        <form action="{{ url( 'index' , { 'nonce' : 'now' | date( 'U' ) } ) }}" method="get" class="navbar-form navbar-right" role="form">
-                            <div class="form-group">
-                                <input type="text" name="_switch_user" id="_switch_user" placeholder="Username" class="form-control" style="font-size: 80%;" />
+                        <li>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <form action="{{ url( 'index' , { 'nonce' : 'now' | date( 'U' ) } ) }}" method="get" class="navbar-form navbar-right" role="form">
+                                    <div class="form-group">
+                                        <input type="text" name="_switch_user" id="_switch_user" placeholder="Username" class="form-control" style="" />
+                                    </div>
+                                    <button type="submit" class="btn btn-default" style="">Impersonate</button>
+                                </form>
                             </div>
-                            <button type="submit" class="btn btn-default" style="font-size: 80%;">Impersonate</button>
-                        </form>
+                        </div>
                         </li>
                     {% endif %}
                     {{ _self.navLink( 'logout' , 'Logout' ) }}

@@ -4,26 +4,34 @@
     {{ parent() }} - Home page
 {% endblock title %}
 
-{% block content %}  
-    <h2>Partners</h2>
-    
-    <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>phone</th>
-        </tr>
-        </thead>
-    {% for id , partner in partners %}
-        <tr>
-            <td>{{ id }}</td>
-            <td>{{ partner.name }}</td>
-            <td>{{ partner.phone }}</td>
-        </tr>
-    {% else %}
-        <tr><td colspan="3">no partners</td></tr>
-    {% endfor %}
-    </table>
+{% block content %}
+
+    <div class="panel panel-info grid-100 grid-parent">
+        <div class="panel-heading">
+            <h2 class="panel-title">Partners</h2>
+        </div>
+
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>phone</th>
+                </tr>
+                </thead>
+                {% for id , partner in partners %}
+                    <tr>
+                        <td>{{ id }}</td>
+                        <td>{{ partner.name }}</td>
+                        <td>{{ partner.phone }}</td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="3">no partners</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
     
 {% endblock content %}  

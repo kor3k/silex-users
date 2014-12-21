@@ -4,12 +4,16 @@
     {{ parent() }} - Error {{ error.statusCode | default('') }}
 {% endblock title %}
 
-{% block content %}  
-    
-    <h2><span style="color: red;">Error</span> {{ error.statusCode | default('') }}</h2>                
+{% block content %}
 
-    <p>
-        An error has occurred {{ error.statusCode | default('') }} {{ error.message | default('') }}
-    </p>
+    <div class="panel panel-danger grid-100 grid-parent">
+        <div class="panel-heading">
+            <h2 class="panel-title">Error {{ error.statusCode | default('') }}</h2>
+        </div>
+
+        <div class="panel-body">
+            An error has occurred {{ error.statusCode | default('') }} {{ error.message | default('') }}
+        </div>
+    </div>
 
 {% endblock content %}  
