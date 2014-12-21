@@ -4,6 +4,12 @@
   <FilesMatch "\.(appcache|crx|css|eot|gif|htc|ico|jpe?g|js|m4a|m4v|manifest|mp4|oex|oga|ogg|ogv|otf|pdf|png|safariextz|svg|svgz|ttf|vcf|webm|webp|woff|xml|xpi)$">
     Header unset X-UA-Compatible
   </FilesMatch>
+
+#   CORS
+#    Header always set Access-Control-Allow-Origin "*"
+#    Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
+#    Header always set Access-Control-Max-Age "1000"
+#    Header always set Access-Control-Allow-Headers "x-requested-with, Content-Type, origin, authorization, accept, client-security-token"
 </IfModule>
 
 <IfModule mod_autoindex.c>
