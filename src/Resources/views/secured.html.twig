@@ -4,18 +4,12 @@
     {{ parent() }} - Secured area
 {% endblock title %}
 
+{% block header 'Secured' %}
+
 {% block content %}
 
-    <div class="panel panel-info grid-100 grid-parent">
-        <div class="panel-heading">
-            <h2 class="panel-title">Secured</h2>
-        </div>
-
-        <div class="panel-body">
-            zabezpečená oblast<br />
-            vyžaduje <span class="label label-warning">ROLE_USER</span> <br />
-            není dostupná anonymům
-        </div>
-    </div>
+    zabezpečená oblast<br />
+    vyžaduje <span class="label label-warning">ROLE_USER</span> <br />
+    není dostupná anonymům
 
 {% endblock content %}

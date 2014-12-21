@@ -4,17 +4,10 @@
     {{ parent() }} - Edit user
 {% endblock title %}
 
+{% block header 'Edit user' %}
+
 {% block content %}
 
-    <div class="panel panel-info grid-100 grid-parent">
-        <div class="panel-heading">
-            <h2 class="panel-title">Edit user</h2>
-        </div>
-
-        <div class="panel-body">
-            {{ form( form , { 'method' : 'PUT' , 'action' : url( 'put_user' , { 'user' : user.id } ) } ) }}
-        </div>
-    </div>
-
+    {{ form( form , { 'method' : 'PUT' , 'action' : url( 'put_user' , { 'user' : user.id } ) } ) }}
 
 {% endblock content %}

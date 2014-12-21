@@ -4,16 +4,22 @@
     {{ parent() }} - Registration complete
 {% endblock title %}
 
-{% block content %}
+{% block header 'Registration complete' %}
+
+{% block page %}
 
     <div class="panel panel-success grid-100 grid-parent">
         <div class="panel-heading">
-            <h2 class="panel-title">Registration complete</h2>
+            <h2 class="panel-title">{{ block( 'header' ) }}</h2>
         </div>
 
         <div class="panel-body">
             Uživatel "{{ user.username }}" ( {{ user.email }} ) byl zaregistrován.
         </div>
+
+        <footer class="panel-footer" id="page-footer">
+            {{ block( 'footer' ) }}
+        </footer>
     </div>
 
-{% endblock content %}
+{% endblock page %}

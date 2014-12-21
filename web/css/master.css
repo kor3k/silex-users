@@ -145,9 +145,7 @@ li
 
 #page-header
 {
-    text-align: center;
-    font-size: 70%;
-    background-color:  lightblue;
+
 }
 
 #page-content
@@ -157,5 +155,6 @@ li
 
 #page-footer
 {
-
+    text-align: center;
+    font-size: 80%;
 }

@@ -13,33 +13,31 @@
 <div class="grid-container">
     <div class="grid-100 grid-parent" id="page-container">
 
-        <header id="page-header" class="grid-100">
-            {% block header %}
-                silex user-handlig demo application
-            {% endblock header %}
-        </header>
-        <div class="clear"></div>
-
-        {#<nav class="grid-100">#}
         <nav class="grid-100 grid-parent" id="page-navigation">
-        {% block navigation %}
-            {% include 'navigation.html.twig' %}
-        {% endblock navigation %}
+            {% block navigation %}
+                {% include 'navigation.html.twig' %}
+            {% endblock navigation %}
         </nav>
 
+        {% block page %}
+        <div class="panel panel-info grid-100 grid-parent">
+            <header class="panel-heading" id="page-header">
+                <h2 class="panel-title">{% block header '' %}</h2>
+            </header>
 
-        <article class="grid-100 grid-parent" id="page-content">
-            {% block content 'content' %}
-        </article>
+            <article class="panel-body grid-100 grid-parent" id="page-content">
+                {% block content '' %}
+            </article>
 
-        <div class="clear"></div>
-
-
-        <footer class="grid-100 tablet-grid-100 mobile-grid-100" id="page-footer">
+            <footer class="panel-footer" id="page-footer">
             {% block footer %}
                 &copy; yo mama {{ 'now' | date( 'Y' ) }}
             {% endblock footer %}
-        </footer>
+            </footer>
+        </div>
+        {% endblock page %}
+
+        <div class="clear"></div>
 
 
     </div>

@@ -72,8 +72,8 @@
             </li>
         </ul>
 
-        {% if not app.user %}
-            <form action="{{ url('login_check') }}" method="post" class="navbar-form navbar-right" role="form">
+        {% if not app.user and 'login' != app.request.get( '_route' ) %}
+            <form action="{{ url('login_check') }}" method="post" class="navbar-form navbar-right hide-on-tablet" role="form">
 
                 <div class="form-group">
                     <input type="text" name="_username" id="_username" placeholder="Username" class="form-control" />

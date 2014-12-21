@@ -4,7 +4,7 @@
     {{ parent() }} - Page not found {{ error.statusCode | default('') }}
 {% endblock title %}
 
-{% block content %}
+{% block page %}
 
     <div class="panel panel-danger grid-100 grid-parent">
         <div class="panel-heading">
@@ -14,7 +14,11 @@
         <div class="panel-body">
                 Page {{ app.request.uri }} was not found {{ error.statusCode | default('') }} {{ error.message | default('') }}
         </div>
+
+        <footer class="panel-footer" id="page-footer">
+            {{ block( 'footer' ) }}
+        </footer>
     </div>
 
 
-{% endblock content %}  
+{% endblock page %}

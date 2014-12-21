@@ -4,7 +4,7 @@
     {{ parent() }} - Error {{ error.statusCode | default('') }}
 {% endblock title %}
 
-{% block content %}
+{% block page %}
 
     <div class="panel panel-danger grid-100 grid-parent">
         <div class="panel-heading">
@@ -14,6 +14,10 @@
         <div class="panel-body">
             An error has occurred {{ error.statusCode | default('') }} {{ error.message | default('') }}
         </div>
+
+        <footer class="panel-footer" id="page-footer">
+            {{ block( 'footer' ) }}
+        </footer>
     </div>
 
-{% endblock content %}  
+{% endblock page %}

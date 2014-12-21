@@ -4,49 +4,50 @@
     {{ parent() }} - Login
 {% endblock title %}
 
+{% block header 'Login' %}
+
 {% block content %}
 
-    <div class="panel panel-info grid-100 grid-parent">
-        <div class="panel-heading">
-            <h2 class="panel-title">Login</h2>
+    <form action="{{ url('login_check') }}" method="post" role="form">
+
+        <div class="form-group">
+            <label for="_username">Uživatelské jméno / Email:</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                </div>
+                <input type="text" name="_username" id="_username" value="{{ last_username }}" class="form-control" />
+            </div>
         </div>
 
-        <div class="panel-body">
-
-            <form action="{{ url('login_check') }}" method="post" role="form">
-
-                <div class="form-group">
-                    <label for="_username">Uživatelské jméno / Email:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-user"></span>
-                        </div>
-                        <input type="text" name="_username" id="_username" value="{{ last_username }}" class="form-control" />
-                    </div>
+        <div class="form-group">
+            <label for="_password">Heslo:</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"></span>
                 </div>
+                <input type="password" name="_password" id="_password" value="" class="form-control" />
+            </div>
+        </div>
 
-                <div class="form-group">
-                    <label for="_password">Heslo:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-lock"></span>
-                        </div>
-                        <input type="password" name="_password" id="_password" value="" class="form-control" />
-                    </div>
-                </div>
+        <div class="form-group">
+            <input type="submit" value="Login" class="btn btn-info" />
+            <a href="{{ url( 'get_register_user' ) }}" class="btn btn-warning">Register</a>
+        </div>
 
-                <div class="form-group">
-                    <input type="submit" value="Login" class="btn btn-info" />
-                    <a href="{{ url( 'get_register_user' ) }}" class="btn btn-warning">Register</a>
-                </div>
+    </form>
 
 
-            </form>
-
-            <div>
+    {% if last_error %}
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h2 class="panel-title">Error</h2>
+            </div>
+            <div class="panel-body">
                 {{ last_error }}
             </div>
         </div>
-    </div>
+    {% endif %}
+
 
 {% endblock content %}

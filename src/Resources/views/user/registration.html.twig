@@ -4,64 +4,76 @@
     {{ parent() }} - Register user
 {% endblock title %}
 
+{% block header 'Register' %}
+
 {% block content %}
 
-    <div class="panel panel-info grid-100 grid-parent">
-        <div class="panel-heading">
-            <h2 class="panel-title">Register</h2>
+    {{ form_start( form , { 'action' : url( 'post_register_user' ) , 'method' : 'POST' , 'attr' : { 'role' : 'form' } } ) }}
+
+    <div class="form-group">
+        {{ form_label( form.email ) }}
+        <div class="input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-envelope"></span>
+            </div>
+            {{ form_widget( form.email , { 'attr' : { 'placeholder' : "enter email" , 'class' : 'form-control' } } ) }}
         </div>
-
-        <div class="panel-body">
-
-
-            {{ form_start( form , { 'action' : url( 'post_register_user' ) , 'method' : 'POST' , 'attr' : { 'role' : 'form' } } ) }}
-
-            <div class="form-group">
-                {{ form_label( form.email ) }}
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-envelope"></span>
-                    </div>
-                    {{ form_widget( form.email , { 'attr' : { 'placeholder' : "enter email" , 'class' : 'form-control' } } ) }}
-                </div>
-                {{ form_errors( form.email ) }}
-            </div>
-
-            <div class="form-group">
-                {{ form_label( form.username ) }}
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-user"></span>
-                    </div>
-                    {{ form_widget( form.username , { 'attr' : { 'placeholder' : "enter username" , 'class' : 'form-control' } } ) }}
-                </div>
-                {{ form_errors( form.username ) }}
-            </div>
-
-            <div class="form-group">
-                {{ form_label( form.password.first ) }}
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-lock"></span>
-                    </div>
-                    {{ form_widget( form.password.first , { 'attr' : { 'class' : 'form-control' , 'placeholder' : "enter password" } } ) }}
-                </div>
-                {{ form_errors( form.password.first ) }}
-
-                {{ form_label( form.password.second ) }}
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-lock"></span>
-                    </div>
-                    {{ form_widget( form.password.second , { 'attr' : { 'class' : 'form-control' , 'placeholder' : "repeat password" } } ) }}
+        {% if form_errors( form.email ) %}
+            <div class="panel panel-danger">
+                <div class="panel-heading"></div>
+                <div class="panel-body">
+                    {{ form_errors( form.email ) }}
                 </div>
             </div>
+        {% endif %}
+    </div>
 
-            {{ form_widget( form.submit , { 'attr' : { 'class' : 'btn btn-info' } } ) }}
+    <div class="form-group">
+        {{ form_label( form.username ) }}
+        <div class="input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-user"></span>
+            </div>
+            {{ form_widget( form.username , { 'attr' : { 'placeholder' : "enter username" , 'class' : 'form-control' } } ) }}
+        </div>
+        {% if form_errors( form.username ) %}
+            <div class="panel panel-danger">
+                <div class="panel-heading"></div>
+                <div class="panel-body">
+                    {{ form_errors( form.username ) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
 
-            {{ form_end( form ) }}
+    <div class="form-group">
+        {{ form_label( form.password.first ) }}
+        <div class="input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-lock"></span>
+            </div>
+            {{ form_widget( form.password.first , { 'attr' : { 'class' : 'form-control' , 'placeholder' : "enter password" } } ) }}
+        </div>
+        {% if form_errors( form.password.first ) %}
+            <div class="panel panel-danger">
+                <div class="panel-heading"></div>
+                <div class="panel-body">
+                    {{ form_errors( form.password.first ) }}
+                </div>
+            </div>
+        {% endif %}
 
+        {{ form_label( form.password.second ) }}
+        <div class="input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-lock"></span>
+            </div>
+            {{ form_widget( form.password.second , { 'attr' : { 'class' : 'form-control' , 'placeholder' : "repeat password" } } ) }}
         </div>
     </div>
+
+    {{ form_widget( form.submit , { 'attr' : { 'class' : 'btn btn-info' } } ) }}
+
+    {{ form_end( form ) }}
 
 {% endblock content %}
