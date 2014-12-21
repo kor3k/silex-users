@@ -31,6 +31,14 @@ class Application extends \Core\Application
         $this->before(
         function( Request $request )
         {
+            if( $request->query->has( '_locale' ) )
+            {
+                $this['session']->set( '_locale' , $request->query->get( '_locale' ) );
+            }
+
+            $this['locale'] =   $this['session']->get( '_locale' , $this['locale'] );
+            $request->setLocale( $this['locale'] );
+
             $this->logRequest( $request );
         },
         Application::EARLY_EVENT );
