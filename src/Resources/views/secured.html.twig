@@ -4,7 +4,10 @@
     {{ parent() }} - Secured area
 {% endblock title %}
 
-{% block header 'Secured' %}
+{% block header %}
+    <h2 class="panel-title">Secured</h2>
+    <h2 class="panel-title label label-warning">ROLE_USER</h2>
+{% endblock header %}
 
 {% block content %}
 

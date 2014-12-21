@@ -4,10 +4,72 @@
     {{ parent() }} - Edit user
 {% endblock title %}
 
-{% block header 'Edit user' %}
+{% block header %}
+    <h2 class="panel-title">Edit user</h2>
+    <h2 class="panel-title label label-danger">ROLE_ADMIN</h2>
+{% endblock header %}
 
 {% block content %}
 
-    {{ form( form , { 'method' : 'PUT' , 'action' : url( 'put_user' , { 'user' : user.id } ) } ) }}
+    {{ form_start( form , { 'method' : 'PUT' , 'action' : url( 'put_user' , { 'user' : user.id } ) , 'attr' : { 'role' : 'form' } } ) }}
+
+    <div class="form-group">
+        {{ form_label( form.email ) }}
+        <div class="input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-envelope"></span>
+            </div>
+            {{ form_widget( form.email , { 'attr' : { 'placeholder' : "enter email" , 'class' : 'form-control' } } ) }}
+        </div>
+        {% if form_errors( form.email ) %}
+            <div class="panel panel-danger">
+                <div class="panel-heading"></div>
+                <div class="panel-body">
+                    {{ form_errors( form.email ) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label( form.username ) }}
+        <div class="input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-user"></span>
+            </div>
+            {{ form_widget( form.username , { 'attr' : { 'placeholder' : "enter username" , 'class' : 'form-control' } } ) }}
+        </div>
+        {% if form_errors( form.username ) %}
+            <div class="panel panel-danger">
+                <div class="panel-heading"></div>
+                <div class="panel-body">
+                    {{ form_errors( form.username ) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label( form.userRoles ) }}
+        <div class="input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-lock"></span>
+            </div>
+            {{ form_widget( form.userRoles , { 'attr' : { 'class' : 'form-control' } } ) }}
+        </div>
+        {% if form_errors( form.userRoles ) %}
+            <div class="panel panel-danger">
+                <div class="panel-heading"></div>
+                <div class="panel-body">
+                    {{ form_errors( form.userRoles ) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+
+    {{ form_widget( form.submit , { 'attr' : { 'class' : 'btn btn-info' } } ) }}
+
+    {{ form_end( form ) }}
 
 {% endblock content %}

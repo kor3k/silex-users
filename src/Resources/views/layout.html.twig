@@ -22,7 +22,11 @@
         {% block page %}
         <div class="panel panel-info grid-100 grid-parent">
             <header class="panel-heading" id="page-header">
-                <h2 class="panel-title">{% block header '' %}</h2>
+            {% block header %}
+                <h2 class="panel-title">Header</h2>
+                <h2 class="panel-title label label-success">IS_AUTHENTICATED_ANONYMOUSLY</h2>
+            {% endblock header %}
+                <div class="clearfix"></div>
             </header>
 
             <article class="panel-body grid-100 grid-parent" id="page-content">
