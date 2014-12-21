@@ -21,11 +21,8 @@
             {{ form_widget( form.email , { 'attr' : { 'placeholder' : "enter email" , 'class' : 'form-control' } } ) }}
         </div>
         {% if form_errors( form.email ) %}
-            <div class="panel panel-danger">
-                <div class="panel-heading"></div>
-                <div class="panel-body">
-                    {{ form_errors( form.email ) }}
-                </div>
+            <div class="alert alert-danger">
+                {{ form_errors( form.email ) }}
             </div>
         {% endif %}
     </div>
@@ -39,11 +36,8 @@
             {{ form_widget( form.username , { 'attr' : { 'placeholder' : "enter username" , 'class' : 'form-control' } } ) }}
         </div>
         {% if form_errors( form.username ) %}
-            <div class="panel panel-danger">
-                <div class="panel-heading"></div>
-                <div class="panel-body">
-                    {{ form_errors( form.username ) }}
-                </div>
+            <div class="alert alert-danger">
+                {{ form_errors( form.username ) }}
             </div>
         {% endif %}
     </div>
@@ -57,11 +51,8 @@
             {{ form_widget( form.password.first , { 'attr' : { 'class' : 'form-control' , 'placeholder' : "enter password" } } ) }}
         </div>
         {% if form_errors( form.password.first ) %}
-            <div class="panel panel-danger">
-                <div class="panel-heading"></div>
-                <div class="panel-body">
-                    {{ form_errors( form.password.first ) }}
-                </div>
+            <div class="alert alert-danger">
+                {{ form_errors( form.password.first ) }}
             </div>
         {% endif %}
 
