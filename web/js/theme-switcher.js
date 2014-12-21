@@ -22,7 +22,9 @@ var ThemeSwitcher =   function( select , link )
 
     var $select;
     var $link;
-    var themes  =   [ 'default' , 'cerulean' , 'cosmo' , 'flatly' , 'readable' , 'spacelab' , 'superhero' , 'united' , 'yeti' ];
+    var themes  =   [ 'default' , 'cerulean' , 'cosmo' , 'cyborg' , 'darkly' , 'flatly' ,
+                        'journal' , 'lumen' , 'paper' , 'readable' , 'sandstone' , 'simplex' , 'slate' ,
+                        'spacelab' , 'superhero' , 'united' , 'yeti' ];
 
     init( select , link );
 };
