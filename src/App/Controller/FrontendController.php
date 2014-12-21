@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class FrontendController extends \Core\AbstractController
 {
     public function notFoundAction()
@@ -14,9 +16,23 @@ class FrontendController extends \Core\AbstractController
 	    return $this->app->render( '/error/error.html.twig' , [] )->setStatusCode( 500 );
     }      
     
-    public function indexAction()
+    public function indexAction( Request $request )
     {
-	    return $this->app->render( 'index.html.twig' , [] );
+        if( $request->query->has( 'theme' ) )
+        {
+            $theme  =   $request->query->get( 'theme' );
+
+            if( 'default' == $theme )
+            {
+                $this->app['session']->remove( 'theme' );
+            }
+            else
+            {
+                $this->app['session']->set( 'theme' , $theme );
+            }
+        }
+
+        return $this->app->render( 'index.html.twig' , [] );
     }        
     
     public function partnersAction()
