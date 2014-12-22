@@ -8,6 +8,14 @@ user:
   password  : Password
   password2 : Repeat password
   passwordNM: Passwords do not match
+  edit      : Edit user
+  save      : Save
+  roles     : User roles
+  delete    : Delete user
+  created   : Created
+  lastLogin : Last login
+  impersonate: Impersonate
+  stopImprsnt: Stop impersonating
 
 nav:
   home      : Home

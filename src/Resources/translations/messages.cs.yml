@@ -8,6 +8,15 @@ user:
   password  : Heslo
   password2 : Heslo zopakujte
   passwordNM: Hesla se neshodují
+  edit      : Upravit uživatele
+  save      : Uložit
+  roles     : Uživatelské role
+  delete    : Smazat uživatele
+  created   : Vytvořen
+  lastLogin : Poslední přihlášení
+  impersonate: Imitovat
+  stopImprsnt: Konec imitace
+
 
 nav:
   home      : Úvod

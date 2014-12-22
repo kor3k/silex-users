@@ -47,16 +47,16 @@
 
                 {% if app.user and is_granted( 'ROLE_USER' ) %}
                     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                        <li><a href="{{ url( 'index' , { '_switch_user' : '_exit' , 'nonce' : 'now' | date( 'U' ) } ) }}">Stop impersonating</a></li>
+                        <li><a href="{{ url( 'index' , { '_switch_user' : '_exit' , 'nonce' : 'now' | date( 'U' ) } ) }}">{{ 'user.stopImprsnt' | trans }}</a></li>
                     {% elseif is_granted('ROLE_ALLOWED_TO_SWITCH') %}
                         <li>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <form action="{{ url( 'index' , { 'nonce' : 'now' | date( 'U' ) } ) }}" method="get" class="navbar-form navbar-right" role="form">
                                     <div class="form-group form-group-sm">
-                                        <input type="text" name="_switch_user" id="_switch_user" placeholder="Username" class="form-control" style="" />
+                                        <input type="text" name="_switch_user" id="_switch_user" placeholder="{{ 'user.username' | trans }}" class="form-control" style="" />
                                     </div>
-                                    <button type="submit" class="btn btn-success btn-sm" style="">Impersonate</button>
+                                    <button type="submit" class="btn btn-success btn-sm" style="">{{ 'user.impersonate' | trans }}</button>
                                 </form>
                             </div>
                         </div>

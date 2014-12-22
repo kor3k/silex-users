@@ -17,18 +17,18 @@
                 <th><button class="btn btn-warning btn-sm glyphicon glyphicon-pencil" disabled="disabled"></button></th>
                 <th><button class="btn btn-danger btn-sm glyphicon glyphicon-trash" disabled="disabled"></button></th>
                 <th><button class="btn btn-success btn-sm glyphicon glyphicon-user" disabled="disabled"></button></th>
-                <th>username</th>
-                <th>email</th>
-                <th>created</th>
-                <th>last login</th>
-                <th>roles</th>
+                <th>{{ 'user.username' | trans }}</th>
+                <th>Email</th>
+                <th>{{ 'user.created' | trans }}</th>
+                <th>{{ 'user.lastLogin' | trans }}</th>
+                <th>{{ 'user.roles' | trans }}</th>
             </tr>
         </thead>
         {% for user in users %}
             <tr>
                 <td><a href="{{ url( 'edit_user' , { 'user' : user.id } ) }}" class="btn btn-warning btn-sm glyphicon glyphicon-pencil"></a></td>
                 <td>
-                    <form onsubmit="return window.confirm( 'smazat uživatele {{ user.username }}?' )" method="post" action="{{ url( 'delete_user' , { 'user' : user.id } ) }}">
+                    <form onsubmit="return window.confirm( '{{ 'user.delete' | trans }} {{ user.username }}?' )" method="post" action="{{ url( 'delete_user' , { 'user' : user.id } ) }}">
                         <input type="hidden" name="_method" value="DELETE" />
                         <a href="#" onclick="$(this).parent().submit()" class="btn btn-danger btn-sm glyphicon glyphicon-trash"></a>
                     </form>
