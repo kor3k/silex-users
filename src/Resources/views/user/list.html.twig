@@ -30,7 +30,7 @@
                 <td>
                     <form onsubmit="return window.confirm( '{{ 'user.delete' | trans }} {{ user.username }}?' );" method="post" action="{{ url( 'delete_user' , { 'user' : user.id } ) }}">
                         <input type="hidden" name="_method" value="DELETE" />
-                        <a href="#" onclick="$(this).parent().submit()" class="btn btn-danger btn-sm glyphicon glyphicon-trash" data-toggle="modal" data-target="#modalDialog" data-username="{{ user.username }}"></a>
+                        <a href="#" onclick="$(this).parent().submit();" class="btn btn-danger btn-sm glyphicon glyphicon-trash" data-toggle="modal" data-target="#modalDialog" data-username="{{ user.username }}"></a>
                     </form>
                 </td>
                 <td>
@@ -46,8 +46,8 @@
     </table>
 
     <script>
-        $( 'table form > a' ).removeAttr('onclick');
-        $( 'table form' ).removeAttr('onsubmit');
+        $( '#page-content table form > a' ).prop('onclick' , '');
+        $( '#page-content table form' ).prop('onsubmit' , '');
     </script>
 
     <div class="modal fade" id="modalDialog" tabindex="-1" role="dialog" aria-labelledby="modalDialogLabel" aria-hidden="true">
