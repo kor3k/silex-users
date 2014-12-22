@@ -17,7 +17,7 @@ class Application extends \Core\Application
         $this->initUrlGenerator();
         $this->initSwiftGmailer( $this['mailer_user'] , $this['mailer_password'] );
         $this->initTranslation();
-        $this->initTranslationYaml();
+        $this->initTranslationYaml([ 'cs' , 'en' ]);
         $this->initValidator();
         $this->initForm();
         $this->initDoctrine( $this['database_host'] , $this['database_name'] , $this['database_user'] , $this['database_password'] );
