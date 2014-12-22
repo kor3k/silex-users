@@ -10,7 +10,9 @@
 - pro model data používá ORM + MySQL
 - pro views používá Twig
 - pro zabezpečení používá Symfony\Security component
-- pro uchování uživatelského kontextu používá Session
+- pro uchování uživatelského kontextu používá Symfony\Session
+- používá Symfony\Translation pro překlady prvků aplikace, zvolený jazyk ukládá do Session
+    - což porušuje bezestavovost http protokolu a REST principy (jedna url vrací různá data na základě kontextu). správná implementace by měla brát v potaz `Accept-Language` request header a/nebo `_locale` query parameter
 - [silex security provider](http://silex.sensiolabs.org/doc/providers/security.html)
 
 -----------
@@ -107,4 +109,3 @@ a v Twigu:
  - [silex repo](http://github.com/fabpot/Silex)
 
 -----------
-
