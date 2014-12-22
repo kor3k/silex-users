@@ -1,14 +1,14 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Error {{ error.statusCode | default('') }}
+    {{ parent() }} - {{ 'Error' | trans }} {{ error.statusCode | default('') }}
 {% endblock title %}
 
 {% block page %}
 
     <div class="panel panel-danger grid-100 grid-parent">
         <div class="panel-heading">
-            <h2 class="panel-title">Error {{ error.statusCode | default('') }}</h2>
+            <h2 class="panel-title">{{ 'Error' | trans }} {{ error.statusCode | default('') }}</h2>
         </div>
 
         <div class="panel-body">

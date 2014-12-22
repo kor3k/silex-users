@@ -1,11 +1,11 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Edit user
+    {{ parent() }} - {{ 'user.edit' | trans }}
 {% endblock title %}
 
 {% block header %}
-    <h2 class="panel-title">Edit user</h2>
+    <h2 class="panel-title">{{ 'user.edit' | trans }}</h2>
     <h2 class="panel-title label label-danger">ROLE_ADMIN</h2>
 {% endblock header %}
 
@@ -37,7 +37,7 @@
             <div class="input-group-addon">
                 <span class="glyphicon glyphicon-user"></span>
             </div>
-            {{ form_widget( form.username , { 'attr' : { 'placeholder' : "enter username" , 'class' : 'form-control' } } ) }}
+            {{ form_widget( form.username , { 'attr' : { 'placeholder' : 'user.username' | trans , 'class' : 'form-control' } } ) }}
         </div>
         {% if form_errors( form.username ) %}
             <div class="panel panel-danger">

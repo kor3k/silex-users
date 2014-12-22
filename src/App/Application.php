@@ -17,6 +17,7 @@ class Application extends \Core\Application
         $this->initUrlGenerator();
         $this->initSwiftGmailer( $this['mailer_user'] , $this['mailer_password'] );
         $this->initTranslation();
+        $this->initTranslationYaml([ 'cs' , 'en' ]);
         $this->initValidator();
         $this->initForm();
         $this->initDoctrine( $this['database_host'] , $this['database_name'] , $this['database_user'] , $this['database_password'] );
@@ -31,6 +32,14 @@ class Application extends \Core\Application
         $this->before(
         function( Request $request )
         {
+            if( $request->query->has( '_locale' ) )
+            {
+                $this['session']->set( '_locale' , $request->query->get( '_locale' ) );
+            }
+
+            $this['locale'] =   $this['session']->get( '_locale' , $this['locale'] );
+            $request->setLocale( $this['locale'] );
+
             $this->logRequest( $request );
         },
         Application::EARLY_EVENT );

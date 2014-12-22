@@ -1,9 +1,9 @@
 {% extends "layout.html.twig" %}
 
-{% block title parent() ~ ' - Home page' %}
+{% block title parent() ~ ' - ' ~ 'nav.home' | trans %}
 
 {% block header %}
-    <h2 class="panel-title">Home</h2>
+    <h2 class="panel-title">{{ 'nav.home' | trans }}</h2>
 {% endblock header %}
 
 {% block content %}

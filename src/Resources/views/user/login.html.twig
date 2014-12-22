@@ -1,11 +1,11 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Login
+    {{ parent() }} - {{ 'user.login' | trans }}
 {% endblock title %}
 
 {% block header %}
-    <h2 class="panel-title">Login</h2>
+    <h2 class="panel-title">{{ 'user.login' | trans }}</h2>
 {% endblock header %}
 
 {% block content %}
@@ -13,28 +13,28 @@
     <form action="{{ url('login_check') }}" method="post" role="form">
 
         <div class="form-group">
-            <label for="_username">Uživatelské jméno / Email:</label>
+            <label for="_username">{{ 'user.username' | trans }} / Email:</label>
             <div class="input-group">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-user"></span>
                 </div>
-                <input type="text" name="_username" id="_username" value="{{ last_username }}" class="form-control" />
+                <input type="text" name="_username" id="_username" placeholder="{{ 'user.username' | trans }}" value="{{ last_username }}" class="form-control" />
             </div>
         </div>
 
         <div class="form-group">
-            <label for="_password">Heslo:</label>
+            <label for="_password">{{ 'user.password' | trans }}:</label>
             <div class="input-group">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-lock"></span>
                 </div>
-                <input type="password" name="_password" id="_password" value="" class="form-control" />
+                <input type="password" name="_password" id="_password" placeholder="{{ 'user.password' | trans }}" value="" class="form-control" />
             </div>
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Login" class="btn btn-info" />
-            <a href="{{ url( 'get_register_user' ) }}" class="btn btn-warning">Register</a>
+            <input type="submit" value="{{ 'user.login' | trans }}" class="btn btn-info" />
+            <a href="{{ url( 'get_register_user' ) }}" class="btn btn-warning">{{ 'user.register' | trans }}</a>
         </div>
 
     </form>
@@ -42,7 +42,7 @@
 
     {% if last_error %}
         <div class="alert alert-danger">
-            {{ app.translator.trans( last_error ) }}
+            {{ last_error | trans }}
         </div>
     {% endif %}
 

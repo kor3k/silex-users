@@ -147,15 +147,16 @@ class UserController extends \Core\AbstractController
         $roles  =   User::getAvailableRoles();
         $fb =   $this->app['form.factory']->createNamedBuilder( 'user' , 'form' , $user );
         $fb
-            ->add( 'username' , 'text' , [ 'disabled' => true ] )
+            ->add( 'username' , 'text' , [ 'disabled' => true , 'label' => 'user.username' ] )
             ->add( 'email' , 'email' , [ 'disabled' => true ] )
             ->add( 'userRoles' , 'choice' ,
                     [
                         'multiple'      => true ,
                         'constraints'   =>  [ new Constraints\Choice([ 'choices' => array_values( $roles ) , 'multiple' => true ]) ] ,
                         'choices'       =>  $roles ,
+                        'label'         =>  'user.roles'
                     ])
-            ->add( 'submit' , 'submit' , [ 'label'  =>  'upravit' ] )
+            ->add( 'submit' , 'submit' , [ 'label'  =>  'user.save' ] )
         ;
 
         return $fb->getForm();
@@ -204,6 +205,7 @@ class UserController extends \Core\AbstractController
                                                     }
                                                 ) ,
                                             ] ,
+                        'label'     =>  'user.username' ,
                     ]
                  )
             ->add( 'password' , 'repeated' ,
@@ -213,12 +215,12 @@ class UserController extends \Core\AbstractController
                                                 new Constraints\NotBlank() ,
                                                 new Constraints\Length([ 'min' => 5 , 'max' => '250' ])
                                             ] ,
-                        'invalid_message' => 'Hesla se neshodují',
-                        'first_options'  => array('label' => 'Heslo'),
-                        'second_options' => array('label' => 'Heslo zopakujte'),
+                        'invalid_message' => 'user.passwordNM',
+                        'first_options'  => array('label' => 'user.password'),
+                        'second_options' => array('label' => 'user.password2'),
                     ]
                 )
-            ->add( 'submit' , 'submit' , [ 'label'  =>  'registrovat' ] )
+            ->add( 'submit' , 'submit' , [ 'label'  =>  'user.register' ] )
         ;
 
         return $fb->getForm();

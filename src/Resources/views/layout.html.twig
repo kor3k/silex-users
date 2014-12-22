@@ -42,9 +42,20 @@
         {% endblock page %}
         <div class="clear"></div>
 
+        {#<div>#}
+            {#{{ app.locale }} - {{ app.session.get( '_locale' , '-' ) }}#}
+        {#</div>#}
 
+        <div class="grid-50 tablet-grid-50 mobile-grid-50">
+            {% for locale in [ 'cs' , 'en' ] %}
+                <a href="{{ url( 'index' , { '_locale' : locale } ) }}" style="{{ app.locale == locale ? 'font-weight: bold;' }}">{{ locale }}</a>
+                {% if loop.last != true %}
+                    |
+                {% endif %}
+            {% endfor %}
+        </div>
 
-        <div>
+        <div class="grid-50 tablet-grid-50 mobile-grid-50">
         <form method="GET" action="{{ url( 'index' ) }}" style="text-align: right; color: black;">
             theme
             <select id="change-layout-theme" name="theme">

@@ -1,0 +1,30 @@
+
+user:
+  user      : Uživatel
+  login     : Přihlásit
+  logout    : Odhlásit
+  register  : Registrovat
+  username  : Uživatelské jméno
+  password  : Heslo
+  password2 : Heslo zopakujte
+  passwordNM: Hesla se neshodují
+  edit      : Upravit uživatele
+  save      : Uložit
+  roles     : Uživatelské role
+  delete    : Smazat uživatele
+  created   : Vytvořen
+  lastLogin : Poslední přihlášení
+  impersonate: Imitovat
+  stopImprsnt: Konec imitace
+
+
+nav:
+  home      : Úvod
+  public    : Veřejné
+  partners  : Partneři
+  404       : Stránka "nenalezeno"
+  error     : Chybová stránka
+  secured   : Zabezpečené
+  securedAr : Zabezpečená oblast
+  admin     : Správce
+  userlist  : Seznam uživatelů

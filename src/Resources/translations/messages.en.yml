@@ -1,0 +1,29 @@
+
+user:
+  user      : User
+  login     : Login
+  logout    : Logout
+  register  : Register
+  username  : Username
+  password  : Password
+  password2 : Repeat password
+  passwordNM: Passwords do not match
+  edit      : Edit user
+  save      : Save
+  roles     : User roles
+  delete    : Delete user
+  created   : Created
+  lastLogin : Last login
+  impersonate: Impersonate
+  stopImprsnt: Stop impersonating
+
+nav:
+  home      : Home
+  public    : Public
+  partners  : Partners
+  404       : Not found page
+  error     : Error page
+  secured   : Secured
+  securedAr : Secured area
+  admin     : Admin
+  userlist  : User list
