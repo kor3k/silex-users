@@ -28,9 +28,9 @@
             <tr>
                 <td><a href="{{ url( 'edit_user' , { 'user' : user.id } ) }}" class="btn btn-warning btn-sm glyphicon glyphicon-pencil"></a></td>
                 <td>
-                    <form onsubmit="return window.confirm( '{{ 'user.delete' | trans }} {{ user.username }}?' )" method="post" action="{{ url( 'delete_user' , { 'user' : user.id } ) }}">
+                    <form onsubmit="return window.confirm( '{{ 'user.delete' | trans }} {{ user.username }}?' );" method="post" action="{{ url( 'delete_user' , { 'user' : user.id } ) }}">
                         <input type="hidden" name="_method" value="DELETE" />
-                        <a href="#" onclick="$(this).parent().submit()" class="btn btn-danger btn-sm glyphicon glyphicon-trash"></a>
+                        <a href="#" onclick="$(this).parent().submit()" class="btn btn-danger btn-sm glyphicon glyphicon-trash" data-toggle="modal" data-target="#modalDialog" data-username="{{ user.username }}"></a>
                     </form>
                 </td>
                 <td>
@@ -44,5 +44,45 @@
             </tr>
         {% endfor %}
     </table>
+
+    <script>
+        $( 'table form > a' ).removeAttr('onclick');
+        $( 'table form' ).removeAttr('onsubmit');
+    </script>
+
+    <div class="modal fade" id="modalDialog" tabindex="-1" role="dialog" aria-labelledby="modalDialogLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="modalDialogLabel">{{ 'user.delete' | trans }}</h4>
+                </div>
+                <div class="modal-body">
+                    {{ 'user.delete' | trans }} <span></span> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btn-ok">OK</button>
+                    <button type="button" class="btn btn-default btn-close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#modalDialog').find('.modal-footer .btn-ok' ).removeClass( 'btn-info' ).addClass( 'btn-danger' );
+        $('#modalDialog').on('show.bs.modal', function (event)
+        {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var username = button.data('username'); // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this);
+            modal.find('.modal-body span' ).text(username);
+            modal.find('.modal-footer .btn-ok' ).on( 'click' , function(event)
+            {
+                $(button).parent().submit();
+            } );
+        })
+    </script>
 
 {% endblock content %}
