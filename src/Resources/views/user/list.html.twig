@@ -1,11 +1,11 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - User list
+    {{ parent() }} - {{ 'nav.userlist' | trans }}
 {% endblock title %}
 
 {% block header %}
-    <h2 class="panel-title">User list</h2>
+    <h2 class="panel-title">{{ 'nav.userlist' | trans }}</h2>
     <h2 class="panel-title label label-danger">ROLE_ADMIN</h2>
 {% endblock header %}
 

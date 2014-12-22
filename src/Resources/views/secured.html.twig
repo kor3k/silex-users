@@ -1,11 +1,11 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Secured area
+    {{ parent() }} - {{ 'nav.securedAr' | trans }}
 {% endblock title %}
 
 {% block header %}
-    <h2 class="panel-title">Secured</h2>
+    <h2 class="panel-title">{{ 'nav.securedAr' | trans }}</h2>
     <h2 class="panel-title label label-warning">ROLE_USER</h2>
 {% endblock header %}
 

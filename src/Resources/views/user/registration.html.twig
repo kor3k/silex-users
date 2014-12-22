@@ -1,11 +1,11 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ parent() }} - Register user
+    {{ parent() }} - {{ 'user.register' | trans }}
 {% endblock title %}
 
 {% block header %}
-    <h2 class="panel-title">Register</h2>
+    <h2 class="panel-title">{{ 'user.register' | trans }}</h2>
 {% endblock header %}
 
 {% block content %}
@@ -18,7 +18,7 @@
             <div class="input-group-addon">
                 <span class="glyphicon glyphicon-envelope"></span>
             </div>
-            {{ form_widget( form.email , { 'attr' : { 'placeholder' : "enter email" , 'class' : 'form-control' } } ) }}
+            {{ form_widget( form.email , { 'attr' : { 'placeholder' : "Email" , 'class' : 'form-control' } } ) }}
         </div>
         {% if form_errors( form.email ) %}
             <div class="alert alert-danger">
@@ -33,7 +33,7 @@
             <div class="input-group-addon">
                 <span class="glyphicon glyphicon-user"></span>
             </div>
-            {{ form_widget( form.username , { 'attr' : { 'placeholder' : "enter username" , 'class' : 'form-control' } } ) }}
+            {{ form_widget( form.username , { 'attr' : { 'placeholder' : 'user.username' , 'class' : 'form-control' } } ) }}
         </div>
         {% if form_errors( form.username ) %}
             <div class="alert alert-danger">
@@ -48,7 +48,7 @@
             <div class="input-group-addon">
                 <span class="glyphicon glyphicon-lock"></span>
             </div>
-            {{ form_widget( form.password.first , { 'attr' : { 'class' : 'form-control' , 'placeholder' : "enter password" } } ) }}
+            {{ form_widget( form.password.first , { 'attr' : { 'class' : 'form-control' , 'placeholder' : "user.password" } } ) }}
         </div>
         {% if form_errors( form.password.first ) %}
             <div class="alert alert-danger">
@@ -61,7 +61,7 @@
             <div class="input-group-addon">
                 <span class="glyphicon glyphicon-lock"></span>
             </div>
-            {{ form_widget( form.password.second , { 'attr' : { 'class' : 'form-control' , 'placeholder' : "repeat password" } } ) }}
+            {{ form_widget( form.password.second , { 'attr' : { 'class' : 'form-control' , 'placeholder' : "user.password2" } } ) }}
         </div>
     </div>
 

@@ -204,6 +204,7 @@ class UserController extends \Core\AbstractController
                                                     }
                                                 ) ,
                                             ] ,
+                        'label'     =>  'user.username' ,
                     ]
                  )
             ->add( 'password' , 'repeated' ,
@@ -213,12 +214,12 @@ class UserController extends \Core\AbstractController
                                                 new Constraints\NotBlank() ,
                                                 new Constraints\Length([ 'min' => 5 , 'max' => '250' ])
                                             ] ,
-                        'invalid_message' => 'Hesla se neshodují',
-                        'first_options'  => array('label' => 'Heslo'),
-                        'second_options' => array('label' => 'Heslo zopakujte'),
+                        'invalid_message' => 'user.passwordNM',
+                        'first_options'  => array('label' => 'user.password'),
+                        'second_options' => array('label' => 'user.password2'),
                     ]
                 )
-            ->add( 'submit' , 'submit' , [ 'label'  =>  'registrovat' ] )
+            ->add( 'submit' , 'submit' , [ 'label'  =>  'user.register' ] )
         ;
 
         return $fb->getForm();
